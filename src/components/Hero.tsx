@@ -281,12 +281,16 @@ export default function Hero() {
           50%       { transform: translateY(8px) rotate(1deg); }
         }
         @media (max-width: 900px) {
-  .hero-grid { 
-    grid-template-columns: 1fr !important; 
-    text-align: center; 
-  }
-  .hero-visual { 
-    height: auto !important; 
-    padding: 20px 0;
-  }
+          .hero-grid { 
+            grid-template-columns: 1fr !important; 
+            text-align: center; 
+          }
+          .hero-visual { 
+            height: auto !important; 
+            padding: 20px 0;
+          }
+        }
+      `}</style>
+    </section>
+  );
 }
