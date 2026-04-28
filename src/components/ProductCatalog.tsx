@@ -39,8 +39,12 @@ function openWA(productName: string) {
 export default function ProductCatalog() {
   const [activeTab, setActiveTab] = useState("all");
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [search, setSearch] = useState("");
 
-  const filtered = activeTab === "all" ? products : products.filter((p) => p.category === activeTab);
+  const filtered = products.filter((p) =>
+  (activeTab === "all" || p.category === activeTab) &&
+  p.name.toLowerCase().includes(search.toLowerCase())
+);
 
   return (
     <section id="products" style={{ padding: "96px 0", background: "#100d28" }}>
@@ -59,6 +63,25 @@ export default function ProductCatalog() {
           </p>
         </div>
 
+        <div style={{
+  display: "flex", justifyContent: "center",
+  marginBottom: 24,
+}}>
+  <input
+    type="text"
+    placeholder="🔍 Search products..."
+    onChange={(e) => setSearch(e.target.value)}
+    style={{
+      width: "100%", maxWidth: 400,
+      padding: "12px 20px",
+      borderRadius: 9999,
+      border: "1px solid #2a1f4a",
+      background: "#1a1340",
+      color: "#fff", fontSize: 15,
+      outline: "none",
+    }}
+  />
+</div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 48 }}>
           {categories.map((cat) => {
             const isActive = activeTab === cat.id;
