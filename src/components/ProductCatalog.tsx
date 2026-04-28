@@ -203,9 +203,10 @@ export default function ProductCatalog() {
                     marginBottom: 16,
                   }}>{cat.label}</h3>
                   <div style={{
-                    display: "flex", gap: 16,
+                    display: "flex", gap: 16, justifyContent: "center",
                     overflowX: "auto", paddingBottom: 12,
                     scrollbarWidth: "none",
+                    flexWrap: "wrap",
                   }}>
                     {catProducts.map(p => <ProductCard key={p.id} product={p} />)}
                   </div>
