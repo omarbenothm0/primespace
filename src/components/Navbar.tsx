@@ -48,23 +48,22 @@ export default function Navbar() {
         }}>
 
           {/* Logo */}
-          <Link href="/" style={{
-            display: "flex", alignItems: "center", gap: 10,
-            textDecoration: "none",
-          }}>
-            <Image
-              src="/logo.png"
-              alt="PrimeSpace Logo"
-              width={40}
-              height={40}
-              style={{ objectFit: "contain" }}
-            />
-            <span style={{
-              fontSize: 20, fontWeight: 700, color: "#fff", letterSpacing: "-0.5px",
-            }}>
-              Prime<span style={{ color: "#ff00e2" }}>Space</span>
-            </span>
-          </Link>
+<Link href="/" style={{
+  display: "flex", alignItems: "center", gap: 10,
+  textDecoration: "none",
+}}>
+  <span style={{
+    fontSize: 28, fontWeight: 900, color: "#fff", 
+    letterSpacing: "-1px",
+    fontFamily: "var(--font-playfair, serif)",
+    textShadow: "0 0 20px rgba(255,0,226,0.4)",
+  }}>
+    Prime<span style={{ 
+      color: "#ff00e2",
+      fontStyle: "italic",
+    }}>Space</span>
+  </span>
+</Link>
 
           {/* Desktop Nav Links */}
           <ul style={{
