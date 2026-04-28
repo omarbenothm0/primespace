@@ -73,7 +73,7 @@ export default function ProductCatalog() {
           })}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
+        <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
           {filtered.map((product) => {
             const isHovered = hoveredCard === product.id;
             return (
@@ -139,6 +139,12 @@ export default function ProductCatalog() {
           </a>
         </div>
       </div>
+      <style>{`
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+  }
+`}</style>
     </section>
+    
   );
 }
