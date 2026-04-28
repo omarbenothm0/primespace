@@ -113,7 +113,7 @@ export default function Hero() {
               No international card needed.
             </p>
  
-            <div style={{
+            <div className="hero-buttons" style={{
               display: "flex", gap: 12, flexWrap: "wrap",
               marginBottom: 48,
               opacity: visible ? 1 : 0,
@@ -284,13 +284,11 @@ export default function Hero() {
           0%, 100% { transform: translateY(-6px) rotate(-1deg); }
           50%       { transform: translateY(8px) rotate(1deg); }
         }
-        @media (max-width: 900px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            text-align: center;
-          }
-          .hero-visual {
-            height: auto !important;
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+  .hero-visual { height: 280px !important; }
+  .hero-buttons { justify-content: center !important; }
+}
             padding: 20px 0;
           }
         }
