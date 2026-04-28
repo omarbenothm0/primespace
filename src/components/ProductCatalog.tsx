@@ -140,7 +140,7 @@ const products = [
 // ─── HELPERS ──────────────────────────────────────────────────
 function openWA(productName: string) {
   const msg = encodeURIComponent(`Hi PrimeSpace! I want to order: ${productName}`);
-  window.open(`https://wa.me/21600000000?text=${msg}`, "_blank");
+  window.open(`https://wa.me/21658872007?text=${msg}`, "_blank");
 }
 
 // ─── COMPONENT ────────────────────────────────────────────────
@@ -366,7 +366,7 @@ export default function ProductCatalog() {
             Don't see what you're looking for? We have even more products!
           </p>
           <a
-            href="https://wa.me/21600000000?text=Hi%20PrimeSpace!%20I'm%20looking%20for%20a%20product."
+            href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I'm%20looking%20for%20a%20product."
             target="_blank"
             rel="noopener noreferrer"
             style={{
