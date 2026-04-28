@@ -1,7 +1,7 @@
 "use client";
 // src/components/ProductCatalog.tsx
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const categories = [
   { id: "all", label: "All Products", emoji: "✦" },
@@ -40,11 +40,33 @@ export default function ProductCatalog() {
   const [activeTab, setActiveTab] = useState("all");
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [search, setSearch] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const filtered = products.filter((p) =>
     (activeTab === "all" || p.category === activeTab) &&
     p.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Start at middle card on mobile
+  useEffect(() => {
+    const middle = Math.floor(filtered.length / 2);
+    setActiveIndex(middle);
+    setTimeout(() => {
+      if (sliderRef.current) {
+        const cardWidth = sliderRef.current.offsetWidth;
+        sliderRef.current.scrollLeft = middle * cardWidth;
+      }
+    }, 50);
+  }, [activeTab, search]);
+
+  // Track scroll to update dots
+  const handleScroll = () => {
+    if (!sliderRef.current) return;
+    const cardWidth = sliderRef.current.offsetWidth;
+    const index = Math.round(sliderRef.current.scrollLeft / cardWidth);
+    setActiveIndex(index);
+  };
 
   return (
     <section id="products" style={{ padding: "96px 0", background: "#100d28" }}>
@@ -70,13 +92,7 @@ export default function ProductCatalog() {
             placeholder="🔍 Search products..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{
-              width: "100%", maxWidth: 400,
-              padding: "12px 20px", borderRadius: 9999,
-              border: "1px solid #2a1f4a",
-              background: "#1a1340", color: "#fff",
-              fontSize: 15, outline: "none",
-            }}
+            style={{ width: "100%", maxWidth: 400, padding: "12px 20px", borderRadius: 9999, border: "1px solid #2a1f4a", background: "#1a1340", color: "#fff", fontSize: 15, outline: "none" }}
           />
         </div>
 
@@ -95,37 +111,25 @@ export default function ProductCatalog() {
           })}
         </div>
 
-        {/* Products Grid */}
-        <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
+        {/* Products Grid — Desktop */}
+        <div className="products-grid-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
           {filtered.map((product) => {
             const isHovered = hoveredCard === product.id;
             return (
               <div key={product.id} id={`product-${product.id}`} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
-                className="product-card"
                 style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
-                    {product.img ? (
-                      <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
-                    ) : (
-                      <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>
-                    )}
+                    {product.img ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} /> : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
                   </div>
                   <div>
                     <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
                     <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
                   </div>
                 </div>
-
-                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
-                  {product.price}{product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
-                </div>
-
-                <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>
-                  {product.badge}
-                </div>
-
+                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>{product.price}{product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}</div>
+                <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {product.features.map((f) => (
                     <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
@@ -133,23 +137,89 @@ export default function ProductCatalog() {
                     </div>
                   ))}
                 </div>
-
                 {product.popular && (
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>
-                    ★ Most Popular
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>★ Most Popular</div>
                 )}
-
                 <button onClick={() => openWA(product.name)}
                   style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = "brightness(1.15)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(137,6,230,0.4)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-                >
-                  💬 Order on WhatsApp
-                </button>
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = "brightness(1.15)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = "none"; }}
+                >💬 Order on WhatsApp</button>
               </div>
             );
           })}
+        </div>
+
+        {/* Products Slider — Mobile only */}
+        <div className="products-slider-mobile">
+          {/* Peek shadows to show there's more left/right */}
+          <div style={{ position: "relative" }}>
+            <div className="fade-left" />
+            <div className="fade-right" />
+            <div
+              ref={sliderRef}
+              onScroll={handleScroll}
+              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px 8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
+            >
+              {filtered.map((product) => (
+                <div key={product.id}
+                  style={{ minWidth: "80vw", maxWidth: "80vw", scrollSnapAlign: "center", flexShrink: 0, background: "#1a1340", border: "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, boxSizing: "border-box" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
+                      {product.img ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} /> : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
+                      <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>{product.price}{product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}</div>
+                  <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {product.features.map((f) => (
+                      <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
+                        <span style={{ color: "#00ebd1", fontWeight: 700, fontSize: 14 }}>✓</span>{f}
+                      </div>
+                    ))}
+                  </div>
+                  {product.popular && (
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>★ Most Popular</div>
+                  )}
+                  <button onClick={() => openWA(product.name)}
+                    style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
+                  >💬 Order on WhatsApp</button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots indicator */}
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 20 }}>
+            {filtered.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => {
+                  if (sliderRef.current) {
+                    const cardWidth = sliderRef.current.offsetWidth * 0.8 + 14;
+                    sliderRef.current.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+                  }
+                }}
+                style={{
+                  width: i === activeIndex ? 24 : 7,
+                  height: 7,
+                  borderRadius: 9999,
+                  background: i === activeIndex ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "rgba(255,255,255,0.2)",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer",
+                  boxShadow: i === activeIndex ? "0 0 10px rgba(255,0,226,0.6)" : "none",
+                }}
+              />
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 8, fontSize: 12, color: "#a0a0b8" }}>
+            {activeIndex + 1} / {filtered.length}
+          </div>
         </div>
 
         <div style={{ textAlign: "center", marginTop: 56 }}>
@@ -158,37 +228,26 @@ export default function ProductCatalog() {
             style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#25d366", color: "#fff", padding: "14px 32px", borderRadius: 9999, fontSize: 15, fontWeight: 600, textDecoration: "none" }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#1ebe59"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#25d366"; }}
-          >
-            💬 Ask us on WhatsApp
-          </a>
+          >💬 Ask us on WhatsApp</a>
         </div>
       </div>
 
       <style>{`
-        /* ── MOBILE ONLY ── */
+        .products-slider-mobile { display: none; }
+
         @media (max-width: 600px) {
-          #products {
-            padding: 60px 0 !important;
+          .products-grid-desktop { display: none !important; }
+          .products-slider-mobile { display: block; }
+
+          .fade-left {
+            position: absolute; left: 0; top: 0; bottom: 0;
+            width: 40px; z-index: 2; pointer-events: none;
+            background: linear-gradient(to right, #100d28, transparent);
           }
-          .products-grid {
-            display: flex !important;
-            overflow-x: auto !important;
-            flex-wrap: nowrap !important;
-            gap: 14px !important;
-            scroll-snap-type: x mandatory !important;
-            padding: 8px 24px 20px 24px !important;
-            -webkit-overflow-scrolling: touch !important;
-            scrollbar-width: none !important;
-          }
-          .products-grid::-webkit-scrollbar {
-            display: none !important;
-          }
-          .product-card {
-            min-width: calc(100vw - 48px) !important;
-            max-width: calc(100vw - 48px) !important;
-            scroll-snap-align: center !important;
-            flex-shrink: 0 !important;
-            box-sizing: border-box !important;
+          .fade-right {
+            position: absolute; right: 0; top: 0; bottom: 0;
+            width: 40px; z-index: 2; pointer-events: none;
+            background: linear-gradient(to left, #100d28, transparent);
           }
         }
       `}</style>
