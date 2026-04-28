@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const brandLogos = [
-  { name: "Netflix", file: "/netflix.png", bg: "linear-gradient(135deg,#141414,#1a0000)", delay: 0 },
-  { name: "ChatGPT", file: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#0d2318)", delay: 0.3 },
-  { name: "Adobe", file: "/adobe.png", bg: "linear-gradient(135deg,#1a0800,#2d0a00)", delay: 1.0 },
-  { name: "Disney+", file: "/disney.png", bg: "linear-gradient(135deg,#000820,#001040)", delay: 1.4 },
-  { name: "Steam", file: "/steam.png", bg: "linear-gradient(135deg,#0a0f1a,#1b2838)", delay: 0.5 },
-  { name: "Spotify", file: "/spotify.png", bg: "linear-gradient(135deg,#0a1a0a,#0d2b0d)", delay: 0.8 },
-  { name: "CapCut", file: "/capcut.png", bg: "linear-gradient(135deg,#0a0a0a,#1a1a1a)", delay: 0.6 },
-  { name: "Canva", file: "/canva.png", bg: "linear-gradient(135deg,#0a001a,#120028)", delay: 1.2 },
+  { name: "Netflix", file: "/netflix.png", bg: "linear-gradient(135deg,#141414,#1a0000)", delay: 0, productId: "product-1" },
+  { name: "ChatGPT", file: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#0d2318)", delay: 0.3, productId: "product-6" },
+  { name: "Adobe", file: "/adobe.png", bg: "linear-gradient(135deg,#1a0800,#2d0a00)", delay: 1.0, productId: "product-7" },
+  { name: "Disney+", file: "/disney.png", bg: "linear-gradient(135deg,#000820,#001040)", delay: 1.4, productId: "product-3" },
+  { name: "Steam", file: "/steam.png", bg: "linear-gradient(135deg,#0a0f1a,#1b2838)", delay: 0.5, productId: "product-10" },
+  { name: "Spotify", file: "/spotify.png", bg: "linear-gradient(135deg,#0a1a0a,#0d2b0d)", delay: 0.8, productId: "product-4" },
+  { name: "CapCut", file: "/capcut.png", bg: "linear-gradient(135deg,#0a0a0a,#1a1a1a)", delay: 0.6, productId: "product-9" },
+  { name: "Canva", file: "/canva.png", bg: "linear-gradient(135deg,#0a001a,#120028)", delay: 1.2, productId: "product-8" },
 ];
 
 export default function Hero() {
@@ -22,6 +22,18 @@ export default function Hero() {
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
+
+  function scrollToProduct(productId: string) {
+    const el = document.getElementById(productId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.style.transition = "box-shadow 0.3s ease";
+      el.style.boxShadow = "0 0 0 3px #ff00e2, 0 8px 40px rgba(255,0,226,0.5)";
+      setTimeout(() => {
+        el.style.boxShadow = "";
+      }, 2000);
+    }
+  }
 
   return (
     <section
@@ -208,7 +220,8 @@ export default function Hero() {
               {brandLogos.map((logo, i) => (
                 <div
                   key={logo.name}
-                  title=""
+                  title={`View ${logo.name}`}
+                  onClick={() => scrollToProduct(logo.productId)}
                   style={{
                     width: 100, height: 100,
                     borderRadius: 24,
@@ -221,16 +234,19 @@ export default function Hero() {
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     overflow: "hidden",
                     padding: 16,
+                    cursor: "pointer",
                   }}
                   onMouseEnter={e => {
                     (e.currentTarget as HTMLElement).style.transform = "scale(1.12)";
                     (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 40px rgba(137,6,230,0.5)";
                     (e.currentTarget as HTMLElement).style.zIndex = "10";
+                    (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,0,226,0.5)";
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLElement).style.transform = "";
                     (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.4)";
                     (e.currentTarget as HTMLElement).style.zIndex = "";
+                    (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,255,255,0.08)";
                   }}
                 >
                   <Image

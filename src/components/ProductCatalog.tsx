@@ -77,7 +77,7 @@ export default function ProductCatalog() {
           {filtered.map((product) => {
             const isHovered = hoveredCard === product.id;
             return (
-              <div key={product.id} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
+              <div key={product.id} id={`product-${product.id}`} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
                 style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
