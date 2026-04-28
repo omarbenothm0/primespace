@@ -52,13 +52,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{
-              display: "flex", alignItems: "center", gap: 10,
-              fontSize: 20, fontWeight: 700, color: "#fff",
-              marginBottom: 16, letterSpacing: "-0.5px",
-            }}>
-              <img src="/logo.png" alt="PrimeSpace Logo" style={{ width: 40, height: 40, objectFit: "contain" }} />
-              Prime<span style={{ color: "#ff00e2" }}>Space</span>
-            </div>
+  fontSize: 26, fontWeight: 900, color: "#fff",
+  marginBottom: 16, letterSpacing: "-1px",
+  fontFamily: "var(--font-playfair, serif)",
+  textShadow: "0 0 20px rgba(255,0,226,0.4)",
+}}>
+  Prime<span style={{ color: "#ff00e2", fontStyle: "italic" }}>Space</span>
+</div>
             <p style={{
               fontSize: 14, color: "#a0a0b8",
               lineHeight: 1.75, maxWidth: 260, marginBottom: 24,
