@@ -168,7 +168,8 @@ export default function Hero() {
               {[
                 { num: "500+", label: "Happy customers" },
                 { num: "50+", label: "Products available" },
-                { num: "<8h", label: "Delivery time" },
+                { num: "<8
+                  h", label: "Delivery time" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div style={{
