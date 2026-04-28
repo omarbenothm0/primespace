@@ -114,7 +114,7 @@ export default function Hero() {
             </p>
  
             <div className="hero-buttons" style={{
-              display: "flex", gap: 12, flexWrap: "wrap",
+              display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center",
               marginBottom: 48,
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(24px)",
