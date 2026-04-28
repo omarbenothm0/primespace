@@ -208,7 +208,7 @@ export default function Hero() {
               {brandLogos.map((logo, i) => (
                 <div
                   key={logo.name}
-                  title={logo.name}
+                  title=""
                   style={{
                     width: 100, height: 100,
                     borderRadius: 24,
