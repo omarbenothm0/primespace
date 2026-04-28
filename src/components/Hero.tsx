@@ -1,9 +1,9 @@
 "use client";
 // src/components/Hero.tsx
-
+ 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
+ 
 const brandLogos = [
   { name: "Netflix", file: "/netflix.png", bg: "linear-gradient(135deg,#141414,#1a0000)", delay: 0, productId: "product-1" },
   { name: "ChatGPT", file: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#0d2318)", delay: 0.3, productId: "product-6" },
@@ -14,15 +14,15 @@ const brandLogos = [
   { name: "CapCut", file: "/capcut.png", bg: "linear-gradient(135deg,#0a0a0a,#1a1a1a)", delay: 0.6, productId: "product-9" },
   { name: "Canva", file: "/canva.png", bg: "linear-gradient(135deg,#0a001a,#120028)", delay: 1.2, productId: "product-8" },
 ];
-
+ 
 export default function Hero() {
   const [visible, setVisible] = useState(false);
-
+ 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
-
+ 
   function scrollToProduct(productId: string) {
     const el = document.getElementById(productId);
     if (el) {
@@ -34,7 +34,7 @@ export default function Hero() {
       }, 2000);
     }
   }
-
+ 
   return (
     <section
       id="hero"
@@ -58,13 +58,13 @@ export default function Hero() {
         backgroundImage: "radial-gradient(circle, rgba(137,6,230,0.07) 1px, transparent 1px)",
         backgroundSize: "40px 40px",
       }} />
-
-      <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 24px", width: "100%" }}>
+ 
+      <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 20px", width: "100%", overflow: "hidden" }}>
         <div style={{
           display: "grid", gridTemplateColumns: "1fr 1fr",
           gap: 64, alignItems: "center",
         }} className="hero-grid">
-
+ 
           {/* LEFT */}
           <div>
             <div style={{
@@ -84,13 +84,13 @@ export default function Hero() {
                 background: "#ff00e2", display: "inline-block",
                 animation: "pulseGlow 2s ease-in-out infinite",
               }} />
-              Tunisia's #1 Digital Store
+              Tunisia&apos;s #1 Digital Store
             </div>
-
+ 
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
               fontStyle: "italic",
-              fontSize: "clamp(40px, 6vw, 64px)",
+              fontSize: "clamp(28px, 5vw, 64px)",
               fontWeight: 700, lineHeight: 1.08,
               color: "#fff", marginBottom: 24,
               opacity: visible ? 1 : 0,
@@ -100,7 +100,7 @@ export default function Hero() {
               Your favorite apps.<br />
               <em style={{ color: "#ff00e2" }}>Delivered instantly.</em>
             </h1>
-
+ 
             <p style={{
               fontSize: 18, color: "#a0a0b8",
               lineHeight: 1.7, marginBottom: 40, maxWidth: 480,
@@ -112,7 +112,7 @@ export default function Hero() {
               <strong style={{ color: "#fff" }}>available in Tunisia</strong> at local prices.
               No international card needed.
             </p>
-
+ 
             <div style={{
               display: "flex", gap: 12, flexWrap: "wrap",
               marginBottom: 48,
@@ -144,7 +144,7 @@ export default function Hero() {
               >
                 ✦ Browse Products
               </button>
-
+ 
               <a
                 href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I%20want%20to%20place%20an%20order."
                 target="_blank" rel="noopener noreferrer"
@@ -169,7 +169,7 @@ export default function Hero() {
                 💬 Order on WhatsApp
               </a>
             </div>
-
+ 
             {/* Stats */}
             <div style={{
               display: "flex", gap: 32,
@@ -194,7 +194,7 @@ export default function Hero() {
               ))}
             </div>
           </div>
-
+ 
           {/* RIGHT — Real Brand Logos */}
           <div className="hero-visual" style={{
             position: "relative", height: 500,
@@ -209,13 +209,16 @@ export default function Hero() {
               background: "radial-gradient(circle, rgba(137,6,230,0.22) 0%, transparent 70%)",
               filter: "blur(40px)", pointerEvents: "none",
             }} />
-
+ 
             {/* Logo Grid */}
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 100px)",
-              gridTemplateRows: "repeat(2, 100px)",
-              gap: 18, position: "relative", zIndex: 1,
+              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+              gridTemplateRows: "auto",
+              gap: 12,
+              width: "100%",
+              maxWidth: 380,
+              position: "relative", zIndex: 1,
             }}>
               {brandLogos.map((logo, i) => (
                 <div
@@ -223,8 +226,9 @@ export default function Hero() {
                   title={`View ${logo.name}`}
                   onClick={() => scrollToProduct(logo.productId)}
                   style={{
-                    width: 100, height: 100,
-                    borderRadius: 24,
+                    width: "100%",
+                    aspectRatio: "1",
+                    borderRadius: 20,
                     background: logo.bg,
                     border: "1px solid rgba(255,255,255,0.08)",
                     display: "flex", alignItems: "center", justifyContent: "center",
@@ -233,7 +237,7 @@ export default function Hero() {
                     animationDelay: `${logo.delay}s`,
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     overflow: "hidden",
-                    padding: 16,
+                    padding: 12,
                     cursor: "pointer",
                   }}
                   onMouseEnter={e => {
@@ -262,7 +266,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
+ 
       <style>{`
         @keyframes pulseGlow {
           0%, 100% { box-shadow: 0 0 6px rgba(255,0,226,0.6); }
@@ -281,12 +285,12 @@ export default function Hero() {
           50%       { transform: translateY(8px) rotate(1deg); }
         }
         @media (max-width: 900px) {
-          .hero-grid { 
-            grid-template-columns: 1fr !important; 
-            text-align: center; 
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            text-align: center;
           }
-          .hero-visual { 
-            height: auto !important; 
+          .hero-visual {
+            height: auto !important;
             padding: 20px 0;
           }
         }
