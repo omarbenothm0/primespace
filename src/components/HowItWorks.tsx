@@ -75,7 +75,7 @@ export default function HowItWorks() {
             borderRadius: 9999, marginBottom: 20,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00ebd1", display: "inline-block" }} />
-            Le Processus
+            THE PROCESS
           </div>
           <h2 style={{
             fontFamily: "'Playfair Display', Georgia, serif",
