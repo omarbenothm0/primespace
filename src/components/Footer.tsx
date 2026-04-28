@@ -145,7 +145,7 @@ export default function Footer() {
           flexWrap: "wrap", gap: 12,
         }}>
           <p style={{ fontSize: 13, color: "#52527a", margin: 0 }}>
-            © 2025 PrimeSpace. All rights reserved. 🇹🇳
+            © 2026 PrimeSpace. All rights reserved. 🇹🇳
           </p>
           <p style={{
             fontSize: 13, fontWeight: 600, margin: 0,
