@@ -1,0 +1,100 @@
+/* src/app/globals.css */
+/* Base styles and CSS variables for PrimeSpace — Updated with new brand colors */
+
+:root {
+  /* New Brand Colors */
+  --color-bg:               #100d28;  /* Dark Indigo — Page background */
+  --color-surface:          #160f35;  /* Cards & surfaces */
+  --color-surface-elevated: #1e1450;  /* Hovered/elevated cards */
+  --color-border:           #2a1f6a;  /* Card borders, dividers */
+  --color-border-glow:      #8906e6;  /* Hovered card borders */
+
+  --color-primary:          #8906e6;  /* Vivid Purple — buttons, icons */
+  --color-primary-hover:    #ff00e2;  /* Vivid Neon Pink — hover states */
+  --color-accent:           #050deb;  /* Vivid Blue — highlights, accents */
+  --color-accent-light:     #4d57f0;  /* Lighter blue for text */
+
+  --color-text-primary:     #FFFFFF;
+  --color-text-secondary:   #A0A0B8;
+
+  --color-success:          #22C55E;
+  --color-error:            #EF4444;
+  --color-whatsapp:         #25D366;
+
+  /* New Gradients */
+  --gradient-primary: linear-gradient(135deg, #8906e6, #ff00e2);
+  --gradient-accent:  linear-gradient(135deg, #050deb, #8906e6);
+  --gradient-full:    linear-gradient(135deg, #050deb, #8906e6, #ff00e2);
+
+  /* Typography */
+  --font-display: var(--font-playfair), 'Georgia', serif;
+  --font-body:    var(--font-inter), 'system-ui', sans-serif;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Border Radius */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:   0 2px 8px rgba(137, 6, 230, 0.15);
+  --shadow-md:   0 4px 24px rgba(137, 6, 230, 0.25);
+  --shadow-lg:   0 8px 48px rgba(255, 0, 226, 0.35);
+  --shadow-glow: 0 0 32px rgba(5, 13, 235, 0.4);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+p { color: var(--color-text-secondary); }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover { color: var(--color-primary-hover); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border-glow); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
