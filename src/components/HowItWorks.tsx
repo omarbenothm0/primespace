@@ -18,7 +18,7 @@ const steps = [
     title: "Contact on WhatsApp",
     desc: "Click the order button and WhatsApp opens with your order pre-written. Just hit send, we reply instantly.",
     color: "#25d366",
-    detail: "We're available every day. Average reply time is under 5 minutes.",
+    detail: "We're available every day. Average reply time is under 1 hour.",
   },
   {
     num: "03",
