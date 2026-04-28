@@ -96,11 +96,12 @@ export default function ProductCatalog() {
         </div>
 
         {/* Products Grid */}
-        <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20, justifyContent: "center" }}>
+        <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
           {filtered.map((product) => {
             const isHovered = hoveredCard === product.id;
             return (
-              <div key={product.id} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
+              <div key={product.id} id={`product-${product.id}`} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
+                className="product-card"
                 style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -164,19 +165,30 @@ export default function ProductCatalog() {
       </div>
 
       <style>{`
+        /* ── MOBILE ONLY ── */
         @media (max-width: 600px) {
+          #products {
+            padding: 60px 0 !important;
+          }
           .products-grid {
             display: flex !important;
             overflow-x: auto !important;
             flex-wrap: nowrap !important;
-            gap: 12px !important;
+            gap: 14px !important;
             scroll-snap-type: x mandatory !important;
-            padding-bottom: 12px !important;
+            padding: 8px 24px 20px 24px !important;
             -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
           }
-          .products-grid > div {
-            min-width: 260px !important;
+          .products-grid::-webkit-scrollbar {
+            display: none !important;
+          }
+          .product-card {
+            min-width: calc(100vw - 48px) !important;
+            max-width: calc(100vw - 48px) !important;
             scroll-snap-align: center !important;
+            flex-shrink: 0 !important;
+            box-sizing: border-box !important;
           }
         }
       `}</style>
