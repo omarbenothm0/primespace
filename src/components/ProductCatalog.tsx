@@ -103,10 +103,6 @@ export default function ProductCatalog() {
               <div key={product.id} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
                 style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
               >
-                {product.popular && (
-                  <div style={{ position: "absolute", top: 12, right: 12, background: "linear-gradient(135deg,#8906e6,#ff00e2)", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 10px", borderRadius: 9999 }}>★ Popular</div>
-                )}
-
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
                     {product.img ? (
@@ -136,6 +132,12 @@ export default function ProductCatalog() {
                     </div>
                   ))}
                 </div>
+
+                {product.popular && (
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>
+                    ★ Most Popular
+                  </div>
+                )}
 
                 <button onClick={() => openWA(product.name)}
                   style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
