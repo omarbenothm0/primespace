@@ -184,7 +184,7 @@ export default function ProductCatalog() {
             Everything you need, <span style={{ color: "#eb75ff" }}>one place.</span>
           </h2>
           <p style={{ fontSize: 17, color: "#a0a0b8", maxWidth: 520, margin: "0 auto" }}>
-            From streaming to AI tools — all delivered instantly to Tunisia at unbeatable local prices.
+            From streaming to AI tools, all delivered instantly to Tunisia at unbeatable local prices.
           </p>
         </div>
 

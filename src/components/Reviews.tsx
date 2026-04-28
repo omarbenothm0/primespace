@@ -23,7 +23,7 @@ const reviews = [
     product: "Adobe Creative Cloud",
     productEmoji: "🎨",
     rating: 5,
-    text: "Got Adobe Creative Cloud for a fraction of the price. The process was super easy — just WhatsApp and pay with D17. Done in 5 minutes.",
+    text: "Got Adobe Creative Cloud for a fraction of the price. The process was super easy, just WhatsApp and pay with D17. Done in 5 minutes.",
     color: "#FF9A00",
     date: "1 month ago",
   },

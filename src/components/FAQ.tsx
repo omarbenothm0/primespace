@@ -10,19 +10,19 @@ const faqs = [
   },
   {
     q: "How long does delivery take?",
-    a: "Most orders are delivered within a few hours after payment confirmation. In some cases it may take up to 24 hours. We will always send you a confirmation message on WhatsApp so you know exactly where your order stands — no guessing, no stress.",
+    a: "Most orders are delivered within a few hours after payment confirmation. In some cases it may take up to 24 hours. We will always send you a confirmation message on WhatsApp so you know exactly where your order stands, no guessing, no stress.",
   },
   {
     q: "What payment methods do you accept?",
-    a: "We accept 4 local Tunisian payment methods: Bank Transfer, Wafacash, D17, and Flouci. No international card needed — ever. Just use whatever you already have on your phone.",
+    a: "We accept 4 local Tunisian payment methods: Bank Transfer, Wafacash, D17, and Flouci. No international card needed, ever. Just use whatever you already have on your phone.",
   },
   {
     q: "Is it safe to order from PrimeSpace?",
-    a: "Absolutely. We've served hundreds of Tunisian customers and have a 4.9★ rating. We only sell legitimate, working subscriptions and accounts. If something goes wrong, we fix it or refund you — no questions asked.",
+    a: "Absolutely. We've served hundreds of Tunisian customers and have a 4.9★ rating. We only sell legitimate, working subscriptions and accounts. If something goes wrong, we fix it or refund you, no questions asked.",
   },
   {
     q: "What if I have a problem with my order?",
-    a: "Just message us on WhatsApp and we'll fix it immediately. We're available every day and respond fast. Customer satisfaction is our priority — we don't disappear after you pay.",
+    a: "Just message us on WhatsApp and we'll fix it immediately. We're available every day and respond fast. Customer satisfaction is our priority, we don't disappear after you pay.",
   },
   {
     q: "Do you offer refunds?",
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: "Do you have more products not listed on the site?",
-    a: "Yes! The site shows our most popular products but we have much more. Just message us on WhatsApp and ask — if we don't have it, we'll tell you honestly.",
+    a: "Yes! The site shows our most popular products but we have much more. Just message us on WhatsApp and ask, if we don't have it, we'll tell you honestly.",
   },
 ];
 
