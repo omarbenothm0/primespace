@@ -1,6 +1,4 @@
 // src/app/page.tsx
-// Main page — assembles all components in order
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProductCatalog from "@/components/ProductCatalog";
@@ -10,6 +8,7 @@ import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import LiveActivity from "@/components/LiveActivity";
 
 export default function Home() {
   return (
@@ -23,6 +22,7 @@ export default function Home() {
       <FAQ />
       <CTA />
       <Footer />
+      <LiveActivity />
     </main>
   );
 }
