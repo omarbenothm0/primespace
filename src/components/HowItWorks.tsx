@@ -82,7 +82,7 @@ export default function HowItWorks() {
             fontStyle: "italic", fontSize: "clamp(32px,5vw,44px)",
             fontWeight: 700, color: "#fff", lineHeight: 1.15, marginBottom: 16,
           }}>
-            Three steps. <span style={{ color: "#eb75ff" }}>Zero friction.</span>
+            Four simple steps. <span style={{ color: "#eb75ff" }}>Zero friction.</span>
           </h2>
           <p style={{ fontSize: 17, color: "#a0a0b8", maxWidth: 480, margin: "0 auto" }}>
             Ordering is as easy as sending a WhatsApp message. Here's exactly how it works.
