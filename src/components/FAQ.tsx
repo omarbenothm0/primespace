@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "Is it safe to order from PrimeSpace?",
-    a: "Absolutely. We've served hundreds of Tunisian customers and have a 4.9★ rating. We only sell legitimate, working subscriptions and accounts. If something goes wrong, we fix it or refund you, no questions asked.",
+    a: "Absolutely. We're new but trusted by early customers in Tunisia",
   },
   {
     q: "What if I have a problem with my order?",
