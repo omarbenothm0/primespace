@@ -178,7 +178,7 @@ export default function Hero() {
               transition: "all 0.7s ease 0.5s",
             }}>
               {[
-                { num: "🇹🇳", label: "Trusted by Tunisians" },
+                { num: "🌟", label: "Be among our first customers" },
                 { num: "50+", label: "Products available" },
                 { num: "<8h", label: "Delivery time" },
               ].map((stat) => (
