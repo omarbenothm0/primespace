@@ -240,6 +240,7 @@ export default function Hero() {
                     overflow: "hidden",
                     padding: 12,
                     cursor: "pointer",
+                    WebkitTapHighlightColor: "transparent",
                   }}
                   onMouseEnter={e => {
                     (e.currentTarget as HTMLElement).style.transform = "scale(1.12)";
