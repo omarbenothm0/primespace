@@ -179,8 +179,8 @@ export default function Hero() {
             }}>
               {[
                 { num: "Trusted", label: "by Tunisians" },
-                { num: "50+", label: "Products available" },
-                { num: "Fast", label: "Delivery" },
+{ num: "50+", label: "Products available" },
+{ num: "Fast", label: "Delivery" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div style={{
