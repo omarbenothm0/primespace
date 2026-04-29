@@ -133,7 +133,7 @@ export default function FAQ() {
 
                 {/* Answer */}
                 <div style={{
-                  maxHeight: isOpen ? 200 : 0,
+                  maxHeight: isOpen ? 500 : 0,
                   overflow: "hidden",
                   transition: "max-height 0.35s ease",
                 }}>
