@@ -128,6 +128,7 @@ export default function Hero() {
                   padding: "14px 28px", borderRadius: 9999,
                   fontSize: 15, fontWeight: 600,
                   fontFamily: "inherit", cursor: "pointer",
+                  WebkitTapHighlightColor: "transparent",
                   transition: "all 0.2s ease",
                   display: "flex", alignItems: "center", gap: 8,
                 }}
