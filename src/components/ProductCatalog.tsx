@@ -101,7 +101,7 @@ export default function ProductCatalog() {
           {categories.map((cat) => {
             const isActive = activeTab === cat.id;
             return (
-              <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 20px", borderRadius: 9999, fontSize: 14, fontWeight: 500, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", background: isActive ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "#1a1340", color: isActive ? "#fff" : "#a0a0b8", border: isActive ? "1px solid transparent" : "1px solid #2a1f4a", boxShadow: isActive ? "0 4px 20px rgba(137,6,230,0.35)" : "none", transform: isActive ? "translateY(-1px)" : "none" }}
+              <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 20px", borderRadius: 9999, fontSize: 14, fontWeight: 500, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", background: isActive ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "#1a1340", color: isActive ? "#fff" : "#a0a0b8", border: "none", boxShadow: isActive ? "0 4px 20px rgba(137,6,230,0.35)" : "none", transform: isActive ? "translateY(-1px)" : "none" }}
                 onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.borderColor = "#8906e6"; (e.currentTarget as HTMLElement).style.color = "#fff"; } }}
                 onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.borderColor = "#2a1f4a"; (e.currentTarget as HTMLElement).style.color = "#a0a0b8"; } }}
               >
