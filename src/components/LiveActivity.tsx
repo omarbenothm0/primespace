@@ -94,7 +94,7 @@ export default function LiveActivity() {
       }, delay);
     };
 
-    scheduleNext(8000);
+    scheduleNext(999999999);
     return () => clearTimeout(timeout);
   }, []);
 
