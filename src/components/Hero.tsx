@@ -246,7 +246,7 @@ export default function Hero() {
                     (e.currentTarget as HTMLElement).style.transform = "scale(1.12)";
                     (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 40px rgba(137,6,230,0.5)";
                     (e.currentTarget as HTMLElement).style.zIndex = "10";
-                    (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,0,226,0.5)";
+                    (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,255,255,0.5)";
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLElement).style.transform = "";
