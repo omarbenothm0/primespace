@@ -178,9 +178,9 @@ export default function Hero() {
               transition: "all 0.7s ease 0.5s",
             }}>
               {[
-                { num: "Trusted", label: "by Tunisians" },
+                { num: "100%", label: "Tunisian trusted" },
                 { num: "50+", label: "Products available" },
-                { num: "Fast", label: "Delivery" },
+                { num: "<3h", label: "Delivery time" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div style={{
