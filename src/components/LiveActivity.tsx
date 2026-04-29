@@ -85,9 +85,17 @@ export default function LiveActivity() {
   };
 
   useEffect(() => {
-    const first = setTimeout(showNext, 8000);
-    const interval = setInterval(showNext, Math.random() * 10000 + 25000);
-    return () => { clearTimeout(first); clearInterval(interval); };
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const scheduleNext = (delay: number) => {
+      timeout = setTimeout(() => {
+        showNext();
+        scheduleNext(Math.random() * 15000 + 30000);
+      }, delay);
+    };
+
+    scheduleNext(8000);
+    return () => clearTimeout(timeout);
   }, []);
 
   if (!visible) return null;
