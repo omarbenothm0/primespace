@@ -69,29 +69,29 @@ const products = [
   // ── MUSIC ──────────────────────────────────────────────────────────────────
   {
     id: 6, category: "music",
-    name: "Spotify Premium", tag: "Music · 1 Month",
+    name: "Spotify Premium", tag: "Music · Full Access · 1 Month",
     img: "/spotify.png",
     bg: "linear-gradient(135deg,#0f1f0f,#1DB954)", color: "#1DB954",
-    price: "XX TND", per: "/ month", badge: "Full Access",
-    features: ["Ad-free music", "Offline listening", "HiFi audio quality"],
+    price: "25 TND", per: "/ month", badge: "",
+    features: ["Ad-free listening experience", "Offline downloads enabled", "Works on all devices (Android, iOS, PC, Mac)"],
     popular: true,
   },
   {
     id: 7, category: "music",
-    name: "Deezer", tag: "Music · 3 Months Shared",
-    img: null,
+    name: "Deezer", tag: "Music · Family · 3 Months Shared",
+    img: "/deezer.png",
     bg: "linear-gradient(135deg,#1a0a00,#ef5466)", color: "#ef5466",
-    price: "XX TND", per: "/ 3 months", badge: "Shared Slot",
-    features: ["Ad-free music", "Offline mode", "HiFi quality"],
+    price: "50 TND", per: "/ 3 months", badge: "Shared Slot",
+    features: ["Listen without cutting off other members", "Ad-free music offline", "Works on PC, TV, Mobile, PS, Xbox, Pad"],
     popular: false,
   },
   {
     id: 8, category: "music",
-    name: "SoundCloud", tag: "Music · 1 Month",
-    img: null,
+    name: "SoundCloud", tag: "Music · Personal · 1 Month",
+    img: "/soundcloud.png",
     bg: "linear-gradient(135deg,#1a0500,#ff5500)", color: "#ff5500",
-    price: "XX TND", per: "/ month", badge: "Personal Account",
-    features: ["Personal account", "Offline listening", "No ads"],
+    price: "35 TND", per: "/ month", badge: "Personal Account",
+    features: ["Personal account · Plus plan", "Offline listening on Mobile, PC, Web", "Independent artists & original works"],
     popular: false,
   },
   {
@@ -493,7 +493,9 @@ export default function ProductCatalog() {
                   {product.price}
                   {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
                 </div>
-                <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
+                {product.badge && (
+                  <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
+                )}
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {product.features.map((f) => (
                     <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
@@ -543,7 +545,9 @@ export default function ProductCatalog() {
                     {product.price}
                     {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
                   </div>
-                  <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
+                  {product.badge && (
+                    <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
+                  )}
                   <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     {product.features.map((f) => (
                       <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
