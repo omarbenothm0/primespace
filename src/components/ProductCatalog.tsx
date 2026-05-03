@@ -22,11 +22,11 @@ const products = [
   // ── STREAMING ─────────────────────────────────────────────────────────────
   {
     id: 1, category: "streaming",
-    name: "Netflix", tag: "Streaming · 4K",
+    name: "Netflix Premium", tag: "Streaming · 4K · Private Profile",
     img: "/netflix.png",
     bg: "linear-gradient(135deg,#141414,#E50914)", color: "#E50914",
-    price: "20 TND", per: "/ month", badge: "Save 70%",
-    features: ["Unlimited access", "Ultra HD 4K", "Offline downloads"],
+    price: "25 TND", per: "/ month", badge: "Save 80%",
+    features: ["Your own dedicated private profile", "4K Ultra HD · All devices", "30-day warranty included"],
     popular: true,
   },
   {
