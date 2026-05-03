@@ -103,7 +103,6 @@ const products = [
     features: ["100M+ songs", "Spatial audio", "Offline downloads"],
     popular: false,
   },
-  // ── YouTube Premium 1 Month REMOVED ────────────────────────────────────────
   {
     id: 11, category: "music",
     name: "YouTube Premium", tag: "Music + Video · 1 Year",
@@ -126,20 +125,20 @@ const products = [
   // ── AI TOOLS ───────────────────────────────────────────────────────────────
   {
     id: 13, category: "ai",
-    name: "ChatGPT Plus", tag: "AI · GPT-4o",
+    name: "ChatGPT & Rita", tag: "AI · ChatGPT + Multi-Model Pack",
     img: "/chatgpt.png",
     bg: "linear-gradient(135deg,#0a1a14,#10A37F)", color: "#10A37F",
-    price: "XX TND", per: "/ month", badge: "Most Popular",
-    features: ["Full GPT-4o access", "Image generation", "Priority speed"],
+    price: "99 TND", per: "/ month", badge: "All-in-One AI",
+    features: ["ChatGPT, Gemini, Claude & more in one place", "Text, image, video & audio creation", "Works on Mobile, PC, iPhone, Pad, Web & Mac"],
     popular: true,
   },
   {
     id: 14, category: "ai",
-    name: "Claude Pro", tag: "AI · Sonnet",
-    img: null,
+    name: "Claude Pro + Claude Code", tag: "AI · Pro + Code · 1 Month",
+    img: "/claude.png",
     bg: "linear-gradient(135deg,#1a0f00,#cc785c)", color: "#cc785c",
-    price: "XX TND", per: "/ month", badge: "Smart & Safe",
-    features: ["Claude Sonnet access", "Long context window", "File analysis"],
+    price: "79 TND", per: "/ month", badge: "Full Access",
+    features: ["Personal access via your own email", "Claude Code — coding, debugging & automation", "Advanced reasoning & expanded context window"],
     popular: false,
   },
   {
