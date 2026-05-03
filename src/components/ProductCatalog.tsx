@@ -4,31 +4,391 @@
 import { useState, useRef, useEffect } from "react";
 
 const categories = [
-  { id: "all", label: "All Products", emoji: "✦" },
-  { id: "streaming", label: "Streaming", emoji: "🎬" },
-  { id: "music", label: "Music", emoji: "🎵" },
-  { id: "ai", label: "AI & Software", emoji: "🤖" },
-  { id: "games", label: "Games", emoji: "🎮" },
-  { id: "social", label: "Social Media", emoji: "📱" },
-  { id: "cards", label: "Gift Cards", emoji: "💳" },
+  { id: "all",       label: "All Products", emoji: "✦"  },
+  { id: "streaming", label: "Streaming",    emoji: "🎬" },
+  { id: "music",     label: "Music",        emoji: "🎵" },
+  { id: "ai",        label: "AI Tools",     emoji: "🤖" },
+  { id: "design",    label: "Design",       emoji: "🎨" },
+  { id: "education", label: "Education",    emoji: "📚" },
+  { id: "software",  label: "Software",     emoji: "💻" },
+  { id: "vpn",       label: "VPN",          emoji: "🔒" },
+  { id: "antivirus", label: "Antivirus",    emoji: "🛡️" },
+  { id: "gaming",    label: "Gaming",       emoji: "🎮" },
+  { id: "social",    label: "Social",       emoji: "💬" },
 ];
 
 const products = [
-  { id: 1, category: "streaming", name: "Netflix", tag: "Streaming · 4K", img: "/netflix.png", bg: "linear-gradient(135deg,#141414,#E50914)", color: "#E50914", price: "15 TND", per: "/ month", badge: "Save 70%", features: ["Unlimited access", "Ultra HD 4K", "Offline downloads"], popular: true },
-  { id: 2, category: "streaming", name: "Prime Video", tag: "Streaming · HD", img: "/primevideo.png", bg: "linear-gradient(135deg,#001a2e,#00A8E1)", color: "#00A8E1", price: "10 TND", per: "/ month", badge: "Save 65%", features: ["Amazon Originals", "HD quality", "Fast delivery bonus"], popular: false },
-  { id: 3, category: "streaming", name: "Disney+", tag: "Streaming · 4K", img: "/disney.png", bg: "linear-gradient(135deg,#000820,#0063e5)", color: "#0063e5", price: "12 TND", per: "/ month", badge: "Save 60%", features: ["Marvel & Star Wars", "Pixar collection", "4K HDR"], popular: false },
-  { id: 4, category: "music", name: "Spotify Premium", tag: "Music · Offline", img: "/spotify.png", bg: "linear-gradient(135deg,#0f1f0f,#1DB954)", color: "#1DB954", price: "8 TND", per: "/ month", badge: "Save 70%", features: ["Ad-free music", "Offline listening", "HiFi audio quality"], popular: true },
-  { id: 5, category: "music", name: "YouTube Premium", tag: "Music + Video", img: "/youtube.png", bg: "linear-gradient(135deg,#1a0000,#FF0000)", color: "#FF0000", price: "10 TND", per: "/ month", badge: "Save 65%", features: ["No ads on YouTube", "Background play", "YouTube Music included"], popular: false },
-  { id: 6, category: "ai", name: "ChatGPT Plus", tag: "AI · GPT-4", img: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#10A37F)", color: "#10A37F", price: "25 TND", per: "/ month", badge: "Save 60%", features: ["Full GPT-4 access", "Image generation", "Priority speed"], popular: true },
-  { id: 7, category: "ai", name: "Adobe Creative", tag: "Software · All Apps", img: "/adobe.png", bg: "linear-gradient(135deg,#1a0800,#FF0000)", color: "#FF9A00", price: "35 TND", per: "/ month", badge: "Save 75%", features: ["Photoshop + Illustrator", "Premiere + After Effects", "Full Creative Cloud"], popular: false },
-  { id: 8, category: "ai", name: "Canva Pro", tag: "Design · All Features", img: "/canva.png", bg: "linear-gradient(135deg,#0a001a,#7D2AE8)", color: "#00C4CC", price: "12 TND", per: "/ month", badge: "Save 65%", features: ["All premium templates", "Background remover", "Brand kit included"], popular: false },
-  { id: 9, category: "ai", name: "CapCut Pro", tag: "Video Editing", img: "/capcut.png", bg: "linear-gradient(135deg,#0a0a0a,#000000)", color: "#ffffff", price: "10 TND", per: "/ month", badge: "Save 60%", features: ["No watermark", "All premium effects", "Auto captions"], popular: false },
-  { id: 10, category: "games", name: "Steam Wallet", tag: "Gaming · Top-up", img: "/steam.png", bg: "linear-gradient(135deg,#0a0f1a,#1b2838)", color: "#66c0f4", price: "From 15 TND", per: "", badge: "Instant", features: ["Any amount available", "All regions", "Instant delivery"], popular: true },
-  { id: 11, category: "games", name: "PlayStation Plus", tag: "Gaming · PS4/PS5", img: null, bg: "linear-gradient(135deg,#00004a,#003791)", color: "#003791", price: "28 TND", per: "/ month", badge: "Save 55%", features: ["Free monthly games", "Online multiplayer", "Cloud storage"], popular: false },
-  { id: 12, category: "social", name: "Instagram Followers", tag: "Growth · Real", img: "/instagram.png", bg: "linear-gradient(135deg,#3a0020,#833ab4)", color: "#f56040", price: "From 5 TND", per: "", badge: "Real accounts", features: ["10K to 1M followers", "Gradual delivery", "No password needed"], popular: false },
-  { id: 13, category: "social", name: "Facebook Likes", tag: "Growth · Page", img: "/facebook.png", bg: "linear-gradient(135deg,#001428,#1877f2)", color: "#1877f2", price: "From 5 TND", per: "", badge: "Real accounts", features: ["Page or post likes", "Fast delivery", "No password needed"], popular: false },
-  { id: 14, category: "cards", name: "Google Play Card", tag: "Gift Card · Any App", img: null, bg: "linear-gradient(135deg,#0a1a0a,#34A853)", color: "#34A853", price: "From 15 TND", per: "", badge: "Instant code", features: ["Apps, games & more", "Any amount", "Works worldwide"], popular: false },
-  { id: 15, category: "cards", name: "iTunes / App Store", tag: "Gift Card · Apple", img: null, bg: "linear-gradient(135deg,#1a0a1a,#555555)", color: "#aaaaaa", price: "From 15 TND", per: "", badge: "Instant code", features: ["Apps, music & movies", "Any amount", "All Apple devices"], popular: false },
+
+  // ── STREAMING ─────────────────────────────────────────────────────────────
+  {
+    id: 1, category: "streaming",
+    name: "Netflix", tag: "Streaming · 4K",
+    img: "/netflix.png",
+    bg: "linear-gradient(135deg,#141414,#E50914)", color: "#E50914",
+    price: "20 TND", per: "/ month", badge: "Save 70%",
+    features: ["Unlimited access", "Ultra HD 4K", "Offline downloads"],
+    popular: true,
+  },
+  {
+    id: 2, category: "streaming",
+    name: "Disney+", tag: "Streaming · 4K",
+    img: "/disney.png",
+    bg: "linear-gradient(135deg,#000820,#0063e5)", color: "#0063e5",
+    price: "XX TND", per: "/ month", badge: "Save 60%",
+    features: ["Marvel & Star Wars", "Pixar collection", "4K HDR"],
+    popular: false,
+  },
+  {
+    id: 3, category: "streaming",
+    name: "Prime Video", tag: "Streaming · HD",
+    img: "/primevideo.png",
+    bg: "linear-gradient(135deg,#001a2e,#00A8E1)", color: "#00A8E1",
+    price: "XX TND", per: "/ month", badge: "Save 65%",
+    features: ["Amazon Originals", "HD quality", "Fast delivery"],
+    popular: false,
+  },
+  {
+    id: 4, category: "streaming",
+    name: "Shahid VIP", tag: "Streaming · Arabic",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0000,#e63946)", color: "#e63946",
+    price: "XX TND", per: "/ month", badge: "Arabic Content",
+    features: ["Arabic series & movies", "Live TV", "HD quality"],
+    popular: false,
+  },
+  {
+    id: 5, category: "streaming",
+    name: "Apple TV+", tag: "Streaming · Originals",
+    img: null,
+    bg: "linear-gradient(135deg,#111111,#444444)", color: "#ffffff",
+    price: "XX TND", per: "/ month", badge: "Premium Originals",
+    features: ["Apple Originals only", "Award-winning series", "4K HDR"],
+    popular: false,
+  },
+
+  // ── MUSIC ──────────────────────────────────────────────────────────────────
+  {
+    id: 6, category: "music",
+    name: "Spotify Premium", tag: "Music · 1 Month",
+    img: "/spotify.png",
+    bg: "linear-gradient(135deg,#0f1f0f,#1DB954)", color: "#1DB954",
+    price: "XX TND", per: "/ month", badge: "Full Access",
+    features: ["Ad-free music", "Offline listening", "HiFi audio quality"],
+    popular: true,
+  },
+  {
+    id: 7, category: "music",
+    name: "Deezer", tag: "Music · 3 Months Shared",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0a00,#ef5466)", color: "#ef5466",
+    price: "XX TND", per: "/ 3 months", badge: "Shared Slot",
+    features: ["Ad-free music", "Offline mode", "HiFi quality"],
+    popular: false,
+  },
+  {
+    id: 8, category: "music",
+    name: "SoundCloud", tag: "Music · 1 Month",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0500,#ff5500)", color: "#ff5500",
+    price: "XX TND", per: "/ month", badge: "Personal Account",
+    features: ["Personal account", "Offline listening", "No ads"],
+    popular: false,
+  },
+  {
+    id: 9, category: "music",
+    name: "Apple Music", tag: "Music · All Songs",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0010,#fc3c44)", color: "#fc3c44",
+    price: "XX TND", per: "/ month", badge: "Full Access",
+    features: ["100M+ songs", "Spatial audio", "Offline downloads"],
+    popular: false,
+  },
+  {
+    id: 10, category: "music",
+    name: "YouTube Premium", tag: "Music + Video · 1 Month",
+    img: "/youtube.png",
+    bg: "linear-gradient(135deg,#1a0000,#FF0000)", color: "#FF0000",
+    price: "XX TND", per: "/ month", badge: "No Ads",
+    features: ["No ads on YouTube", "Background play", "YouTube Music included"],
+    popular: false,
+  },
+  {
+    id: 11, category: "music",
+    name: "YouTube Premium", tag: "Music + Video · 1 Year",
+    img: "/youtube.png",
+    bg: "linear-gradient(135deg,#1a0000,#FF0000)", color: "#FF0000",
+    price: "XX TND", per: "/ year", badge: "Best Value",
+    features: ["No ads on YouTube", "Background play", "YouTube Music included"],
+    popular: false,
+  },
+  {
+    id: 12, category: "music",
+    name: "Anghami", tag: "Music · Arabic",
+    img: null,
+    bg: "linear-gradient(135deg,#0a0a1a,#6c63ff)", color: "#6c63ff",
+    price: "XX TND", per: "/ month", badge: "Arabic Music",
+    features: ["Arabic & international", "Offline mode", "No ads"],
+    popular: false,
+  },
+
+  // ── AI TOOLS ───────────────────────────────────────────────────────────────
+  {
+    id: 13, category: "ai",
+    name: "ChatGPT Plus", tag: "AI · GPT-4o",
+    img: "/chatgpt.png",
+    bg: "linear-gradient(135deg,#0a1a14,#10A37F)", color: "#10A37F",
+    price: "XX TND", per: "/ month", badge: "Most Popular",
+    features: ["Full GPT-4o access", "Image generation", "Priority speed"],
+    popular: true,
+  },
+  {
+    id: 14, category: "ai",
+    name: "Claude Pro", tag: "AI · Sonnet",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0f00,#cc785c)", color: "#cc785c",
+    price: "XX TND", per: "/ month", badge: "Smart & Safe",
+    features: ["Claude Sonnet access", "Long context window", "File analysis"],
+    popular: false,
+  },
+  {
+    id: 15, category: "ai",
+    name: "Perplexity", tag: "AI · Web Search",
+    img: null,
+    bg: "linear-gradient(135deg,#001a1a,#20b2aa)", color: "#20b2aa",
+    price: "XX TND", per: "/ month", badge: "Real-time Web",
+    features: ["Real-time web search", "Cited answers", "GPT-4 & Claude access"],
+    popular: false,
+  },
+  {
+    id: 16, category: "ai",
+    name: "Gemini Advanced", tag: "AI · Google",
+    img: null,
+    bg: "linear-gradient(135deg,#001a3a,#4285F4)", color: "#4285F4",
+    price: "XX TND", per: "/ month", badge: "By Google",
+    features: ["Gemini Ultra model", "Google Workspace", "1M token context"],
+    popular: false,
+  },
+  {
+    id: 17, category: "ai",
+    name: "Grok", tag: "AI · xAI",
+    img: null,
+    bg: "linear-gradient(135deg,#0a0a0a,#333333)", color: "#ffffff",
+    price: "XX TND", per: "/ month", badge: "By Elon Musk",
+    features: ["Real-time X/Twitter data", "Image generation", "Grok 3 access"],
+    popular: false,
+  },
+  {
+    id: 18, category: "ai",
+    name: "Midjourney", tag: "AI · Image Gen",
+    img: null,
+    bg: "linear-gradient(135deg,#0a001a,#7928CA)", color: "#9b59b6",
+    price: "XX TND", per: "/ month", badge: "Standard Plan",
+    features: ["AI image generation", "200 images/month", "Commercial use"],
+    popular: false,
+  },
+  {
+    id: 19, category: "ai",
+    name: "Seedance", tag: "AI · Video Gen",
+    img: null,
+    bg: "linear-gradient(135deg,#001a0a,#00b894)", color: "#00b894",
+    price: "XX TND", per: "/ month", badge: "By ByteDance",
+    features: ["AI video generation", "Image to video", "TikTok quality"],
+    popular: false,
+  },
+  {
+    id: 20, category: "ai",
+    name: "Kling", tag: "AI · Video Gen",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0a00,#e17055)", color: "#e17055",
+    price: "XX TND", per: "/ month", badge: "Full Access",
+    features: ["Realistic AI videos", "Image to video", "1080p quality"],
+    popular: false,
+  },
+  {
+    id: 21, category: "ai",
+    name: "Higgsfield", tag: "AI · Video Gen",
+    img: null,
+    bg: "linear-gradient(135deg,#00001a,#0984e3)", color: "#0984e3",
+    price: "XX TND", per: "/ month", badge: "Cinematic",
+    features: ["Cinematic AI videos", "Movie-like quality", "Creative effects"],
+    popular: false,
+  },
+  {
+    id: 22, category: "ai",
+    name: "ElevenLabs", tag: "AI · Voice Gen",
+    img: null,
+    bg: "linear-gradient(135deg,#1a1a00,#f9ca24)", color: "#f9ca24",
+    price: "XX TND", per: "/ month", badge: "Full Access",
+    features: ["AI voice cloning", "Text to speech", "100+ languages"],
+    popular: false,
+  },
+  {
+    id: 23, category: "ai",
+    name: "Cursor", tag: "AI · Coding",
+    img: null,
+    bg: "linear-gradient(135deg,#00001a,#6c5ce7)", color: "#6c5ce7",
+    price: "XX TND", per: "/ month", badge: "For Developers",
+    features: ["AI code generation", "Bug fixing", "Full project context"],
+    popular: false,
+  },
+
+  // ── DESIGN ─────────────────────────────────────────────────────────────────
+  {
+    id: 24, category: "design",
+    name: "Canva Pro", tag: "Design · All Features",
+    img: "/canva.png",
+    bg: "linear-gradient(135deg,#0a001a,#7D2AE8)", color: "#00C4CC",
+    price: "XX TND", per: "/ month", badge: "Save 65%",
+    features: ["All premium templates", "Background remover", "Brand kit included"],
+    popular: false,
+  },
+  {
+    id: 25, category: "design",
+    name: "CapCut Pro", tag: "Video Editing",
+    img: "/capcut.png",
+    bg: "linear-gradient(135deg,#0a0a0a,#000000)", color: "#ffffff",
+    price: "XX TND", per: "/ month", badge: "Save 60%",
+    features: ["No watermark", "All premium effects", "Auto captions"],
+    popular: false,
+  },
+  {
+    id: 26, category: "design",
+    name: "Freepik", tag: "Design · Assets",
+    img: null,
+    bg: "linear-gradient(135deg,#001a10,#1abc9c)", color: "#1abc9c",
+    price: "XX TND", per: "/ month", badge: "Premium Assets",
+    features: ["Millions of assets", "AI image generator", "Commercial license"],
+    popular: false,
+  },
+
+  // ── EDUCATION ──────────────────────────────────────────────────────────────
+  {
+    id: 27, category: "education",
+    name: "Grammarly", tag: "Writing · AI",
+    img: null,
+    bg: "linear-gradient(135deg,#001a05,#15c39a)", color: "#15c39a",
+    price: "XX TND", per: "/ month", badge: "Premium",
+    features: ["AI grammar check", "Tone detection", "Plagiarism checker"],
+    popular: false,
+  },
+  {
+    id: 28, category: "education",
+    name: "Duolingo", tag: "Languages · 6 Months",
+    img: null,
+    bg: "linear-gradient(135deg,#0a1a00,#58cc02)", color: "#58cc02",
+    price: "XX TND", per: "/ 6 months", badge: "Super Plan",
+    features: ["Ad-free learning", "Offline lessons", "All languages"],
+    popular: false,
+  },
+  {
+    id: 29, category: "education",
+    name: "Coursera", tag: "Courses · University",
+    img: null,
+    bg: "linear-gradient(135deg,#001530,#0056d2)", color: "#0056d2",
+    price: "XX TND", per: "/ month", badge: "Plus Plan",
+    features: ["7000+ courses", "Google & Meta certs", "University degrees"],
+    popular: false,
+  },
+
+  // ── SOFTWARE ───────────────────────────────────────────────────────────────
+  {
+    id: 30, category: "software",
+    name: "Windows 11", tag: "OS · Activation Key",
+    img: null,
+    bg: "linear-gradient(135deg,#001030,#0078d7)", color: "#0078d7",
+    price: "XX TND", per: "", badge: "Lifetime Key",
+    features: ["Genuine activation", "All features unlocked", "Instant delivery"],
+    popular: false,
+  },
+  {
+    id: 31, category: "software",
+    name: "Windows 10", tag: "OS · Activation Key",
+    img: null,
+    bg: "linear-gradient(135deg,#001030,#00adef)", color: "#00adef",
+    price: "XX TND", per: "", badge: "Lifetime Key",
+    features: ["Genuine activation", "All features unlocked", "Instant delivery"],
+    popular: false,
+  },
+
+  // ── VPN ────────────────────────────────────────────────────────────────────
+  {
+    id: 32, category: "vpn",
+    name: "CyberGhost VPN", tag: "VPN · Privacy",
+    img: null,
+    bg: "linear-gradient(135deg,#1a1000,#ffcc00)", color: "#ffcc00",
+    price: "XX TND", per: "/ month", badge: "Private & Fast",
+    features: ["9000+ servers", "No logs policy", "All devices"],
+    popular: false,
+  },
+  {
+    id: 33, category: "vpn",
+    name: "ExpressVPN", tag: "VPN · Premium",
+    img: null,
+    bg: "linear-gradient(135deg,#1a0000,#da3940)", color: "#da3940",
+    price: "XX TND", per: "/ month", badge: "Fastest VPN",
+    features: ["160+ countries", "Lightning speed", "All devices"],
+    popular: false,
+  },
+
+  // ── ANTIVIRUS ──────────────────────────────────────────────────────────────
+  {
+    id: 34, category: "antivirus",
+    name: "McAfee", tag: "Antivirus · 3 Months",
+    img: null,
+    bg: "linear-gradient(135deg,#001a00,#c0392b)", color: "#c0392b",
+    price: "XX TND", per: "/ 3 months", badge: "PC Protection",
+    features: ["Full virus protection", "Real-time scanning", "Safe browsing"],
+    popular: false,
+  },
+
+  // ── GAMING ─────────────────────────────────────────────────────────────────
+  {
+    id: 35, category: "gaming",
+    name: "PlayStation Extra", tag: "Gaming · PS4/PS5",
+    img: null,
+    bg: "linear-gradient(135deg,#00004a,#003791)", color: "#4e9de0",
+    price: "XX TND", per: "/ month", badge: "400+ Games",
+    features: ["Game catalog access", "Online multiplayer", "Free monthly games"],
+    popular: false,
+  },
+  {
+    id: 36, category: "gaming",
+    name: "PlayStation Essential", tag: "Gaming · PS4/PS5",
+    img: null,
+    bg: "linear-gradient(135deg,#00003a,#002f6c)", color: "#1d6fa4",
+    price: "XX TND", per: "/ month", badge: "Online Play",
+    features: ["Online multiplayer", "2–3 free games/month", "Cloud saves"],
+    popular: false,
+  },
+  {
+    id: 37, category: "gaming",
+    name: "Xbox Essential", tag: "Gaming · Xbox",
+    img: null,
+    bg: "linear-gradient(135deg,#001a00,#107c10)", color: "#107c10",
+    price: "XX TND", per: "/ month", badge: "Online Play",
+    features: ["Online multiplayer", "Free monthly games", "Xbox & PC"],
+    popular: false,
+  },
+  {
+    id: 38, category: "gaming",
+    name: "Xbox Premium", tag: "Gaming · Game Pass",
+    img: null,
+    bg: "linear-gradient(135deg,#001500,#52b043)", color: "#52b043",
+    price: "XX TND", per: "/ month", badge: "Best Value 👑",
+    features: ["400+ games library", "Day one releases", "Xbox & PC"],
+    popular: true,
+  },
+
+  // ── SOCIAL ─────────────────────────────────────────────────────────────────
+  {
+    id: 39, category: "social",
+    name: "Discord Nitro Basic", tag: "Social · Discord",
+    img: null,
+    bg: "linear-gradient(135deg,#0a0a1a,#5865F2)", color: "#5865F2",
+    price: "XX TND", per: "/ month", badge: "Nitro Basic",
+    features: ["Animated avatar", "Custom emoji", "Bigger file uploads"],
+    popular: false,
+  },
 ];
 
 function openWA(productName: string) {
@@ -48,7 +408,6 @@ export default function ProductCatalog() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Start at middle card on mobile
   useEffect(() => {
     const middle = Math.floor(filtered.length / 2);
     setActiveIndex(middle);
@@ -60,7 +419,6 @@ export default function ProductCatalog() {
     }, 50);
   }, [activeTab, search]);
 
-  // Track scroll to update dots
   const handleScroll = () => {
     if (!sliderRef.current) return;
     const cardWidth = sliderRef.current.offsetWidth;
@@ -101,9 +459,10 @@ export default function ProductCatalog() {
           {categories.map((cat) => {
             const isActive = activeTab === cat.id;
             return (
-              <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 20px", borderRadius: 9999, fontSize: 14, fontWeight: 500, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", background: isActive ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "#1a1340", color: isActive ? "#fff" : "#a0a0b8", border: "none", boxShadow: isActive ? "0 4px 20px rgba(137,6,230,0.35)" : "none", transform: isActive ? "translateY(-1px)" : "none" }}
-                onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.borderColor = "#8906e6"; (e.currentTarget as HTMLElement).style.color = "#fff"; } }}
-                onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.borderColor = "#2a1f4a"; (e.currentTarget as HTMLElement).style.color = "#a0a0b8"; } }}
+              <button key={cat.id} onClick={() => setActiveTab(cat.id)}
+                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 20px", borderRadius: 9999, fontSize: 14, fontWeight: 500, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", background: isActive ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "#1a1340", color: isActive ? "#fff" : "#a0a0b8", border: "none", boxShadow: isActive ? "0 4px 20px rgba(137,6,230,0.35)" : "none", transform: isActive ? "translateY(-1px)" : "none" }}
+                onMouseEnter={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = "#fff"; } }}
+                onMouseLeave={e => { if (!isActive) { (e.currentTarget as HTMLElement).style.color = "#a0a0b8"; } }}
               >
                 <span>{cat.emoji}</span>{cat.label}
               </button>
@@ -116,19 +475,24 @@ export default function ProductCatalog() {
           {filtered.map((product) => {
             const isHovered = hoveredCard === product.id;
             return (
-              <div key={product.id} id={`product-${product.id}`} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
+              <div key={product.id} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
                 style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
-                    {product.img ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} /> : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
+                    {product.img
+                      ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
+                      : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
                   </div>
                   <div>
                     <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
                     <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
                   </div>
                 </div>
-                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>{product.price}{product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}</div>
+                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
+                  {product.price}
+                  {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
+                </div>
                 <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {product.features.map((f) => (
@@ -152,14 +516,13 @@ export default function ProductCatalog() {
 
         {/* Products Slider — Mobile only */}
         <div className="products-slider-mobile">
-          {/* Peek shadows to show there's more left/right */}
           <div style={{ position: "relative" }}>
             <div className="fade-left" />
             <div className="fade-right" />
             <div
               ref={sliderRef}
               onScroll={handleScroll}
-              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px 8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
+              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
             >
               {filtered.map((product) => (
                 <div key={product.id}
@@ -167,14 +530,19 @@ export default function ProductCatalog() {
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                     <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
-                      {product.img ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} /> : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
+                      {product.img
+                        ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
+                        : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
                     </div>
                     <div>
                       <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
                       <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
                     </div>
                   </div>
-                  <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>{product.price}{product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}</div>
+                  <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
+                    {product.price}
+                    {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
+                  </div>
                   <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     {product.features.map((f) => (
@@ -194,31 +562,27 @@ export default function ProductCatalog() {
             </div>
           </div>
 
-          {/* Dots indicator */}
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 20 }}>
-            {filtered.map((_, i) => (
-              <div
-                key={i}
-                onClick={() => {
+          {/* Dots — only when a category is selected (not "all") */}
+          {activeTab !== "all" && (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 20 }}>
+              {filtered.map((_, i) => (
+                <div key={i} onClick={() => {
                   if (sliderRef.current) {
                     const cardWidth = sliderRef.current.offsetWidth * 0.8 + 14;
                     sliderRef.current.scrollTo({ left: i * cardWidth, behavior: "smooth" });
                   }
                 }}
-                style={{
-                  width: i === activeIndex ? 24 : 7,
-                  height: 7,
-                  borderRadius: 9999,
-                  background: i === activeIndex ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "rgba(255,255,255,0.2)",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  boxShadow: i === activeIndex ? "0 0 10px rgba(255,0,226,0.6)" : "none",
-                }}
-              />
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 8, fontSize: 12, color: "#a0a0b8" }}>
-            {activeIndex + 1} / {filtered.length}
+                  style={{ width: i === activeIndex ? 24 : 7, height: 7, borderRadius: 9999, background: i === activeIndex ? "linear-gradient(135deg, #8906e6, #ff00e2)" : "rgba(255,255,255,0.2)", transition: "all 0.3s ease", cursor: "pointer", boxShadow: i === activeIndex ? "0 0 10px rgba(255,0,226,0.6)" : "none" }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Counter — always visible */}
+          <div style={{ textAlign: "center", marginTop: activeTab !== "all" ? 8 : 20, fontSize: 13, fontWeight: 600, color: "#a0a0b8" }}>
+            <span style={{ color: "#fff" }}>{activeIndex + 1}</span>
+            <span style={{ margin: "0 4px" }}>/</span>
+            <span>{filtered.length}</span>
           </div>
         </div>
 
