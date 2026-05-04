@@ -98,7 +98,7 @@ export default function Hero() {
               transition: "all 0.7s ease 0.2s",
             }}>
               Your favorite apps.<br />
-              <em style={{ color: "#ff00e2" }}>Delivered instantly.</em>
+              <em style={{ color: "#ff00e2" }}>Delivered in hours.</em>
             </h1>
  
             <p style={{
@@ -108,7 +108,7 @@ export default function Hero() {
               transform: visible ? "translateY(0)" : "translateY(24px)",
               transition: "all 0.7s ease 0.3s",
             }}>
-              Netflix, Spotify, Adobe, ChatGPT & more,{" "}
+              Netflix, Spotify, Steam, ChatGPT & more,{" "}
               <strong style={{ color: "#fff" }}>available in Tunisia</strong> at local prices.
               No international card needed.
             </p>
