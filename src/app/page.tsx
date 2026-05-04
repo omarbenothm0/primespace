@@ -17,9 +17,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ProductCatalog />
+      <InternationalCard />
       <HowItWorks />
       <PaymentMethods />
-      <InternationalCard />
       <Reviews />
       <FAQ />
       <CTA />
