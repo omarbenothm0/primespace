@@ -284,9 +284,9 @@ export default function InternationalCard() {
           </p>
 
           {/* Price */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '26px', flexWrap: 'wrap' }}>
+          <div className="ic-price" style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '26px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '38px', fontWeight: 700, color: '#fff', letterSpacing: '-1px' }}>49 TND</span>
-            <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>/ card</span>
+            <span className="ic-price-card-label" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>/ card</span>
             <span style={{
               fontSize: '10px', fontWeight: 600, letterSpacing: '0.5px', color: '#22c55e',
               background: 'rgba(34,197,94,0.1)', border: '0.5px solid rgba(34,197,94,0.2)',
@@ -385,6 +385,15 @@ export default function InternationalCard() {
 
           .ic-features > div {
             justify-content: center;
+          }
+
+          .ic-price {
+            justify-content: center !important;
+            align-items: center !important;
+          }
+
+          .ic-price-card-label {
+            display: none !important;
           }
         }
       `}</style>
