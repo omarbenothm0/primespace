@@ -648,7 +648,7 @@ export default function ProductCatalog() {
             <div
               ref={sliderRef}
               onScroll={handleScroll}
-              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px 0 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
+              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px 8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
             >
               {filtered.map((product) => (
                 <div key={product.id} style={{ minWidth: "80vw", maxWidth: "80vw", scrollSnapAlign: "center", flexShrink: 0, boxSizing: "border-box" }}>
@@ -667,7 +667,7 @@ export default function ProductCatalog() {
           </div>
 
           {activeTab !== "all" && (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 20 }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 12 }}>
               {filtered.map((_, i) => (
                 <div key={i} onClick={() => {
                   if (sliderRef.current) {
@@ -688,7 +688,7 @@ export default function ProductCatalog() {
           </div>
         </div>
 
-        <div style={{ textAlign: "center", marginTop: 56 }}>
+        <div style={{ textAlign: "center", marginTop: 16 }}>
           <p style={{ color: "#a0a0b8", fontSize: 15, marginBottom: 16 }}>Don't see what you're looking for? We have even more products!</p>
           <a href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I'm%20looking%20for%20a%20product." target="_blank" rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#25d366", color: "#fff", padding: "14px 32px", borderRadius: 9999, fontSize: 15, fontWeight: 600, textDecoration: "none" }}
