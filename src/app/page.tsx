@@ -8,7 +8,8 @@ import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import LiveActivity from "@/components/LiveActivity";
+import LiveActivity from "@/components/LiveActivity"
+import InternationalCard from "@/components/InternationalCard";;
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <ProductCatalog />
       <HowItWorks />
       <PaymentMethods />
+      <InternationalCard />
       <Reviews />
       <FAQ />
       <CTA />
