@@ -384,9 +384,9 @@ const products: Product[] = [
     ],
     popular: false,
     denominations: [
-      { label: "$20", tnd: "79 TND" },
-      { label: "$30", tnd: "119 TND" },
-      { label: "$50", tnd: "190 TND" },
+      { label: "$20",  tnd: "79 TND"  },
+      { label: "$30",  tnd: "119 TND" },
+      { label: "$50",  tnd: "190 TND" },
       { label: "$100", tnd: "385 TND" },
     ],
   },
@@ -411,7 +411,6 @@ function openWA(productName: string, denomination?: string) {
   window.open(`https://wa.me/21658872007?text=${msg}`, "_blank");
 }
 
-// ── Card renderer (shared between desktop grid & mobile slider) ─────────────
 function ProductCard({
   product,
   isHovered,
@@ -431,12 +430,12 @@ function ProductCard({
 }) {
   const hasDenoms = product.denominations && product.denominations.length > 0;
   const activeDenom = hasDenoms ? product.denominations![selectedDenom] : null;
-
   const displayPrice = hasDenoms ? activeDenom!.tnd : product.price;
-  const displayPer   = hasDenoms ? ""              : product.per;
+  const displayPer   = hasDenoms ? "" : product.per;
 
   return (
     <div
+      id={`product-${product.id}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
@@ -552,7 +551,6 @@ export default function ProductCatalog() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [search, setSearch]           = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
-  // denomination selection per product id
   const [selectedDenoms, setSelectedDenoms] = useState<Record<number, number>>({});
   const sliderRef = useRef<HTMLDivElement>(null);
 

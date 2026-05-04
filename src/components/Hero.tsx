@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
  
 const brandLogos = [
-  { name: "Netflix", file: "/netflix.png", bg: "linear-gradient(135deg,#141414,#1a0000)", delay: 0, productId: "product-1" },
-  { name: "ChatGPT", file: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#0d2318)", delay: 0.3, productId: "product-6" },
-  { name: "Discord", file: "/discord.png", bg: "linear-gradient(135deg,#1e2057,#404EBD)", delay: 1.0, productId: "product-7" },
-  { name: "Disney+", file: "/disney.png", bg: "linear-gradient(135deg,#000820,#001040)", delay: 1.4, productId: "product-3" },
-  { name: "Steam", file: "/steam.png", bg: "linear-gradient(135deg,#0a0f1a,#1b2838)", delay: 0.5, productId: "product-10" },
-  { name: "Spotify", file: "/spotify.png", bg: "linear-gradient(135deg,#0a1a0a,#0d2b0d)", delay: 0.8, productId: "product-4" },
-  { name: "CapCut", file: "/capcut.png", bg: "linear-gradient(135deg,#0a0a0a,#1a1a1a)", delay: 0.6, productId: "product-9" },
-  { name: "Canva", file: "/canva.png", bg: "linear-gradient(135deg,#0a001a,#120028)", delay: 1.2, productId: "product-8" },
+  { name: "Netflix",  file: "/netflix.png",  bg: "linear-gradient(135deg,#141414,#1a0000)",   delay: 0,   productId: "product-1"  },
+  { name: "ChatGPT",  file: "/chatgpt.png",  bg: "linear-gradient(135deg,#0a1a14,#0d2318)",   delay: 0.3, productId: "product-13" },
+  { name: "Discord",  file: "/discord.png",  bg: "linear-gradient(135deg,#1e2057,#404EBD)",   delay: 1.0, productId: "product-39" },
+  { name: "Disney+",  file: "/disney.png",   bg: "linear-gradient(135deg,#000820,#001040)",   delay: 1.4, productId: "product-2"  },
+  { name: "Steam",    file: "/steam.png",    bg: "linear-gradient(135deg,#0a0f1a,#1b2838)",   delay: 0.5, productId: "product-40" },
+  { name: "Spotify",  file: "/spotify.png",  bg: "linear-gradient(135deg,#0a1a0a,#0d2b0d)",   delay: 0.8, productId: "product-6"  },
+  { name: "CapCut",   file: "/capcut.png",   bg: "linear-gradient(135deg,#0a0a0a,#1a1a1a)",   delay: 0.6, productId: "product-25" },
+  { name: "Canva",    file: "/canva.png",    bg: "linear-gradient(135deg,#0a001a,#120028)",   delay: 1.2, productId: "product-24" },
 ];
  
 export default function Hero() {
@@ -24,15 +24,22 @@ export default function Hero() {
   }, []);
  
   function scrollToProduct(productId: string) {
-    const el = document.getElementById(productId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-      el.style.transition = "box-shadow 0.3s ease";
-      el.style.boxShadow = "0 0 0 3px #ff00e2, 0 8px 40px rgba(255,0,226,0.5)";
-      setTimeout(() => {
-        el.style.boxShadow = "";
-      }, 2000);
-    }
+    // First scroll to the products section so items are rendered
+    const section = document.getElementById("products");
+    if (section) section.scrollIntoView({ behavior: "smooth" });
+
+    // Then after a short delay, scroll to the specific card and highlight it
+    setTimeout(() => {
+      const el = document.getElementById(productId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.style.transition = "box-shadow 0.3s ease";
+        el.style.boxShadow = "0 0 0 3px #ff00e2, 0 8px 40px rgba(255,0,226,0.5)";
+        setTimeout(() => {
+          el.style.boxShadow = "";
+        }, 2000);
+      }
+    }, 600);
   }
  
   return (
@@ -180,8 +187,8 @@ export default function Hero() {
             }}>
               {[
                 { num: "100%", label: "Tunisian trusted" },
-                { num: "50+", label: "Products available" },
-                { num: "<3h", label: "Delivery time" },
+                { num: "50+",  label: "Products available" },
+                { num: "<3h",  label: "Delivery time" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div style={{
@@ -196,7 +203,7 @@ export default function Hero() {
             </div>
           </div>
  
-          {/* RIGHT — Real Brand Logos */}
+          {/* RIGHT — Brand Logos */}
           <div className="hero-visual" style={{
             position: "relative", height: 500,
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -286,13 +293,10 @@ export default function Hero() {
           0%, 100% { transform: translateY(-6px) rotate(-1deg); }
           50%       { transform: translateY(8px) rotate(1deg); }
         }
-@media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
-  .hero-visual { height: 280px !important; }
-  .hero-buttons { justify-content: center !important; }
-}
-            padding: 20px 0;
-          }
+        @media (max-width: 900px) {
+          .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .hero-visual { height: 280px !important; }
+          .hero-buttons { justify-content: center !important; }
         }
       `}</style>
     </section>
