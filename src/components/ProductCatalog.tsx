@@ -17,7 +17,25 @@ const categories = [
   { id: "social",    label: "Social",       emoji: "💬" },
 ];
 
-const products = [
+type Denomination = { label: string; tnd: string };
+
+type Product = {
+  id: number;
+  category: string;
+  name: string;
+  tag: string;
+  img: string;
+  bg: string;
+  color: string;
+  price: string;
+  per: string;
+  badge: string;
+  features: string[];
+  popular: boolean;
+  denominations?: Denomination[];
+};
+
+const products: Product[] = [
 
   // ── STREAMING ─────────────────────────────────────────────────────────────
   {
@@ -352,6 +370,27 @@ const products = [
     popular: true,
   },
 
+  // ── STEAM WALLET ───────────────────────────────────────────────────────────
+  {
+    id: 40, category: "gaming",
+    name: "Steam Wallet", tag: "Gaming · Gift Card · Instant Delivery",
+    img: "/steam.png",
+    bg: "linear-gradient(135deg,#000d1a,#1b2838)", color: "#1b9fff",
+    price: "", per: "", badge: "Gift Card",
+    features: [
+      "Instant digital code — delivered on WhatsApp",
+      "Works on PC, Mac & Steam Deck",
+      "No expiry · Use on any Steam game or DLC",
+    ],
+    popular: false,
+    denominations: [
+      { label: "$20", tnd: "79 TND" },
+      { label: "$30", tnd: "119 TND" },
+      { label: "$50", tnd: "190 TND" },
+      { label: "$100", tnd: "385 TND" },
+    ],
+  },
+
   // ── SOCIAL ─────────────────────────────────────────────────────────────────
   {
     id: 39, category: "social",
@@ -364,16 +403,157 @@ const products = [
   },
 ];
 
-function openWA(productName: string) {
-  const msg = encodeURIComponent(`Hi PrimeSpace! I want to order: ${productName}`);
+function openWA(productName: string, denomination?: string) {
+  const orderText = denomination
+    ? `Hi PrimeSpace! I want to order: ${productName} ${denomination}`
+    : `Hi PrimeSpace! I want to order: ${productName}`;
+  const msg = encodeURIComponent(orderText);
   window.open(`https://wa.me/21658872007?text=${msg}`, "_blank");
 }
 
+// ── Card renderer (shared between desktop grid & mobile slider) ─────────────
+function ProductCard({
+  product,
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+  selectedDenom,
+  onSelectDenom,
+  style,
+}: {
+  product: Product;
+  isHovered: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  selectedDenom: number;
+  onSelectDenom: (i: number) => void;
+  style?: React.CSSProperties;
+}) {
+  const hasDenoms = product.denominations && product.denominations.length > 0;
+  const activeDenom = hasDenoms ? product.denominations![selectedDenom] : null;
+
+  const displayPrice = hasDenoms ? activeDenom!.tnd : product.price;
+  const displayPer   = hasDenoms ? ""              : product.per;
+
+  return (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        background: isHovered ? "#221a52" : "#1a1340",
+        border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a",
+        borderRadius: 20,
+        padding: 24,
+        display: "flex",
+        flexDirection: "column",
+        gap: 14,
+        transition: "all 0.25s ease",
+        cursor: "pointer",
+        boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none",
+        transform: isHovered ? "translateY(-4px)" : "none",
+        position: "relative",
+        overflow: "hidden",
+        ...style,
+      }}
+    >
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
+          {product.img
+            ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
+            : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
+        </div>
+        <div>
+          <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
+          <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
+        </div>
+      </div>
+
+      {/* Denomination selector */}
+      {hasDenoms && (
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {product.denominations!.map((d, i) => {
+            const isActive = i === selectedDenom;
+            return (
+              <button
+                key={d.label}
+                onClick={(e) => { e.stopPropagation(); onSelectDenom(i); }}
+                style={{
+                  flex: "1 1 calc(50% - 4px)",
+                  padding: "8px 0",
+                  borderRadius: 10,
+                  border: isActive ? "1.5px solid #8906e6" : "1.5px solid #2a1f4a",
+                  background: isActive ? "rgba(137,6,230,0.18)" : "rgba(255,255,255,0.04)",
+                  color: isActive ? "#fff" : "#a0a0b8",
+                  fontSize: 13,
+                  fontWeight: isActive ? 700 : 500,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  transition: "all 0.18s ease",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 2,
+                  boxShadow: isActive ? "0 0 12px rgba(137,6,230,0.3)" : "none",
+                }}
+              >
+                <span style={{ fontSize: 15, fontWeight: 700, color: isActive ? "#fff" : "#c0c0d8" }}>{d.label}</span>
+                <span style={{ fontSize: 11, color: isActive ? "#00ebd1" : "#666688" }}>{d.tnd}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Price */}
+      <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
+        {displayPrice}
+        {displayPer && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {displayPer}</span>}
+      </div>
+
+      {/* Badge */}
+      {product.badge && (
+        <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>
+          {product.badge}
+        </div>
+      )}
+
+      {/* Features */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {product.features.map((f) => (
+          <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
+            <span style={{ color: "#00ebd1", fontWeight: 700, fontSize: 14 }}>✓</span>{f}
+          </div>
+        ))}
+      </div>
+
+      {/* Popular badge */}
+      {product.popular && (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>
+          ★ Most Popular
+        </div>
+      )}
+
+      {/* Order button */}
+      <button
+        onClick={() => openWA(product.name, activeDenom ? activeDenom.label : undefined)}
+        style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = "brightness(1.15)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = "none"; }}
+      >
+        💬 Order on WhatsApp
+      </button>
+    </div>
+  );
+}
+
 export default function ProductCatalog() {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab]     = useState("all");
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [search, setSearch] = useState("");
+  const [search, setSearch]           = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  // denomination selection per product id
+  const [selectedDenoms, setSelectedDenoms] = useState<Record<number, number>>({});
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const filtered = products.filter((p) =>
@@ -398,6 +578,10 @@ export default function ProductCatalog() {
     const index = Math.round(sliderRef.current.scrollLeft / cardWidth);
     setActiveIndex(index);
   };
+
+  const getSelectedDenom = (id: number) => selectedDenoms[id] ?? 0;
+  const setSelectedDenom = (id: number, i: number) =>
+    setSelectedDenoms((prev) => ({ ...prev, [id]: i }));
 
   return (
     <section id="products" style={{ padding: "96px 0", background: "#100d28" }}>
@@ -445,48 +629,17 @@ export default function ProductCatalog() {
 
         {/* Products Grid — Desktop */}
         <div className="products-grid-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-          {filtered.map((product) => {
-            const isHovered = hoveredCard === product.id;
-            return (
-              <div key={product.id} onMouseEnter={() => setHoveredCard(product.id)} onMouseLeave={() => setHoveredCard(null)}
-                style={{ background: isHovered ? "#221a52" : "#1a1340", border: isHovered ? "1px solid #8906e6" : "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, transition: "all 0.25s ease", cursor: "pointer", boxShadow: isHovered ? "0 4px 24px rgba(137,6,230,0.25)" : "none", transform: isHovered ? "translateY(-4px)" : "none", position: "relative", overflow: "hidden" }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
-                    {product.img
-                      ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
-                      : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
-                    <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
-                  </div>
-                </div>
-                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
-                  {product.price}
-                  {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
-                </div>
-                {product.badge && (
-                  <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
-                )}
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {product.features.map((f) => (
-                    <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
-                      <span style={{ color: "#00ebd1", fontWeight: 700, fontSize: 14 }}>✓</span>{f}
-                    </div>
-                  ))}
-                </div>
-                {product.popular && (
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>★ Most Popular</div>
-                )}
-                <button onClick={() => openWA(product.name)}
-                  style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", transition: "all 0.2s ease", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = "brightness(1.15)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = "none"; }}
-                >💬 Order on WhatsApp</button>
-              </div>
-            );
-          })}
+          {filtered.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              isHovered={hoveredCard === product.id}
+              onMouseEnter={() => setHoveredCard(product.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+              selectedDenom={getSelectedDenom(product.id)}
+              onSelectDenom={(i) => setSelectedDenom(product.id, i)}
+            />
+          ))}
         </div>
 
         {/* Products Slider — Mobile only */}
@@ -500,40 +653,16 @@ export default function ProductCatalog() {
               style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
             >
               {filtered.map((product) => (
-                <div key={product.id}
-                  style={{ minWidth: "80vw", maxWidth: "80vw", scrollSnapAlign: "center", flexShrink: 0, background: "#1a1340", border: "1px solid #2a1f4a", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 14, boxSizing: "border-box" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                    <div style={{ width: 52, height: 52, borderRadius: 14, background: product.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: product.img ? 6 : 0 }}>
-                      {product.img
-                        ? <img src={product.img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "screen" }} />
-                        : <span style={{ fontSize: 26, fontWeight: 900, color: product.color }}>{product.name[0]}</span>}
-                    </div>
-                    <div>
-                      <div style={{ fontSize: 17, fontWeight: 600, color: "#fff" }}>{product.name}</div>
-                      <div style={{ fontSize: 12, color: "#a0a0b8", marginTop: 2 }}>{product.tag}</div>
-                    </div>
-                  </div>
-                  <div style={{ fontSize: 26, fontWeight: 700, color: "#fff" }}>
-                    {product.price}
-                    {product.per && <span style={{ fontSize: 14, fontWeight: 400, color: "#a0a0b8" }}> {product.per}</span>}
-                  </div>
-                  {product.badge && (
-                    <div style={{ display: "inline-block", alignSelf: "flex-start", background: "rgba(0,235,209,0.1)", border: "1px solid rgba(0,235,209,0.25)", color: "#00ebd1", fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 9999 }}>{product.badge}</div>
-                  )}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    {product.features.map((f) => (
-                      <div key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#a0a0b8" }}>
-                        <span style={{ color: "#00ebd1", fontWeight: 700, fontSize: 14 }}>✓</span>{f}
-                      </div>
-                    ))}
-                  </div>
-                  {product.popular && (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, background: "rgba(137,6,230,0.1)", border: "1px solid #8906e6", color: "#ff00e2", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 9999, textAlign: "center" }}>★ Most Popular</div>
-                  )}
-                  <button onClick={() => openWA(product.name)}
-                    style={{ marginTop: "auto", width: "100%", padding: "12px", background: "linear-gradient(135deg, #8906e6, #ff00e2)", color: "#fff", border: "none", borderRadius: 9999, fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}
-                  >💬 Order on WhatsApp</button>
+                <div key={product.id} style={{ minWidth: "80vw", maxWidth: "80vw", scrollSnapAlign: "center", flexShrink: 0, boxSizing: "border-box" }}>
+                  <ProductCard
+                    product={product}
+                    isHovered={false}
+                    onMouseEnter={() => {}}
+                    onMouseLeave={() => {}}
+                    selectedDenom={getSelectedDenom(product.id)}
+                    onSelectDenom={(i) => setSelectedDenom(product.id, i)}
+                    style={{ minWidth: "unset", maxWidth: "unset" }}
+                  />
                 </div>
               ))}
             </div>
