@@ -81,7 +81,8 @@ export default function InternationalCard() {
       <div style={{ position: 'absolute', top: '-100px', left: '15%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(30,80,200,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '-60px', right: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(0,160,140,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-      <div style={{
+      {/* ── MAIN FLEX ROW ── */}
+      <div className="ic-wrapper" style={{
         maxWidth: '1080px',
         margin: '0 auto',
         display: 'flex',
@@ -92,9 +93,10 @@ export default function InternationalCard() {
       }}>
 
         {/* ── LEFT: 3D Card ── */}
-        <div style={{ perspective: '1400px', flexShrink: 0 }}>
+        <div className="ic-card-perspective" style={{ perspective: '1400px', flexShrink: 0 }}>
           <div
             ref={cardRef}
+            className="ic-card"
             style={{
               width: '380px',
               height: '240px',
@@ -187,12 +189,10 @@ export default function InternationalCard() {
                 boxShadow: '0 2px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.3)',
                 overflow: 'hidden',
               }}>
-                {/* Chip lines */}
                 <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', background: 'rgba(0,0,0,0.2)', transform: 'translateY(-5px)' }} />
                 <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', background: 'rgba(0,0,0,0.2)', transform: 'translateY(5px)' }} />
                 <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: 'rgba(0,0,0,0.18)', transform: 'translateX(-6px)' }} />
                 <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: 'rgba(0,0,0,0.18)', transform: 'translateX(6px)' }} />
-                {/* Chip shine */}
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 50%)', borderRadius: '7px' }} />
               </div>
 
@@ -232,7 +232,7 @@ export default function InternationalCard() {
                   <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.85)', letterSpacing: '2px', textTransform: 'uppercase', fontFamily: 'Courier New, monospace' }}>Your Name</div>
                 </div>
 
-                {/* VISA — white, premium */}
+                {/* VISA */}
                 <div style={{
                   fontFamily: 'Times New Roman, Georgia, serif',
                   fontStyle: 'italic', fontWeight: 900, fontSize: '30px',
@@ -256,7 +256,7 @@ export default function InternationalCard() {
         </div>
 
         {/* ── RIGHT: Info Panel ── */}
-        <div style={{ flex: 1, minWidth: '260px', maxWidth: '420px' }}>
+        <div className="ic-info" style={{ flex: 1, minWidth: '260px', maxWidth: '420px' }}>
 
           {/* Badge */}
           <div style={{
@@ -284,7 +284,7 @@ export default function InternationalCard() {
           </p>
 
           {/* Price */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '26px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '26px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '38px', fontWeight: 700, color: '#fff', letterSpacing: '-1px' }}>49 TND</span>
             <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>/ card</span>
             <span style={{
@@ -295,7 +295,7 @@ export default function InternationalCard() {
           </div>
 
           {/* Features */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
+          <div className="ic-features" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
             {[
               'Works on any website worldwide',
               'Virtual Visa — issued in YOUR name',
@@ -358,10 +358,33 @@ export default function InternationalCard() {
         }
 
         @media (max-width: 768px) {
-          section > div {
+          .ic-wrapper {
             flex-direction: column !important;
             align-items: center !important;
             text-align: center !important;
+            gap: 40px !important;
+          }
+
+          .ic-card-perspective {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+
+          .ic-card {
+            width: min(340px, 88vw) !important;
+            height: auto !important;
+            aspect-ratio: 1.58 !important;
+          }
+
+          .ic-info {
+            width: 100%;
+            max-width: 100% !important;
+            align-items: center;
+          }
+
+          .ic-features > div {
+            justify-content: center;
           }
         }
       `}</style>
