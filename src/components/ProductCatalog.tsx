@@ -162,7 +162,7 @@ const products = [
   {
     id: 18, category: "ai",
     name: "Midjourney", tag: "AI · Image Gen · Standard · 1 Month",
-    img: null,
+    img: "/midjourney.png",
     bg: "linear-gradient(135deg,#0a001a,#7928CA)", color: "#9b59b6",
     price: "99 TND", per: "/ month", badge: "Personal Account",
     features: ["Personal account — not shared with anyone", "Unlimited AI image generation + commercial rights", "Works on PC & Mac"],
