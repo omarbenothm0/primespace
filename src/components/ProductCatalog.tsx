@@ -355,11 +355,11 @@ const products = [
   // ── SOCIAL ─────────────────────────────────────────────────────────────────
   {
     id: 39, category: "social",
-    name: "Discord Nitro Basic", tag: "Social · Discord",
-    img: null,
+    name: "Discord Nitro Basic", tag: "Social · Discord · Nitro Basic · 1 Month",
+    img: "/discord.png",
     bg: "linear-gradient(135deg,#0a0a1a,#5865F2)", color: "#5865F2",
-    price: "XX TND", per: "/ month", badge: "Nitro Basic",
-    features: ["Animated avatar", "Custom emoji", "Bigger file uploads"],
+    price: "20 TND", per: "/ month", badge: "Nitro Basic",
+    features: ["Full access · Activatable in Tunisia · 1 Month", "Works on PC, Phone & Mac", "Animated avatar, custom emoji & bigger file uploads"],
     popular: false,
   },
 ];
@@ -539,7 +539,6 @@ export default function ProductCatalog() {
             </div>
           </div>
 
-          {/* Dots — only when a category is selected (not "all") */}
           {activeTab !== "all" && (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 20 }}>
               {filtered.map((_, i) => (
@@ -555,7 +554,6 @@ export default function ProductCatalog() {
             </div>
           )}
 
-          {/* Counter — always visible */}
           <div style={{ textAlign: "center", marginTop: activeTab !== "all" ? 8 : 20, fontSize: 13, fontWeight: 600, color: "#a0a0b8" }}>
             <span style={{ color: "#fff" }}>{activeIndex + 1}</span>
             <span style={{ margin: "0 4px" }}>/</span>
