@@ -358,24 +358,12 @@ export default function InternationalCard() {
         }
 
         @media (max-width: 768px) {
-  section > div {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    gap: 32px !important;
-  }
-  section > div > div:first-child {
-    transform: scale(0.72);
-    transform-origin: center center;
-    margin-bottom: -40px;
-  }
-  section > div > div:last-child {
-    min-width: unset !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 8px;
-  }
-}
+          section > div {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+        }
       `}</style>
     </section>
   );
