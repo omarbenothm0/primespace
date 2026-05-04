@@ -648,7 +648,7 @@ export default function ProductCatalog() {
             <div
               ref={sliderRef}
               onScroll={handleScroll}
-              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
+              style={{ display: "flex", overflowX: "auto", scrollSnapType: "x mandatory", gap: 14, padding: "8px 20px 0 20px", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" as any }}
             >
               {filtered.map((product) => (
                 <div key={product.id} style={{ minWidth: "80vw", maxWidth: "80vw", scrollSnapAlign: "center", flexShrink: 0, boxSizing: "border-box" }}>
@@ -681,7 +681,7 @@ export default function ProductCatalog() {
             </div>
           )}
 
-          <div style={{ textAlign: "center", marginTop: activeTab !== "all" ? 8 : 20, fontSize: 13, fontWeight: 600, color: "#a0a0b8" }}>
+          <div style={{ textAlign: "center", marginTop: 8, fontSize: 13, fontWeight: 600, color: "#a0a0b8" }}>
             <span style={{ color: "#fff" }}>{activeIndex + 1}</span>
             <span style={{ margin: "0 4px" }}>/</span>
             <span>{filtered.length}</span>
