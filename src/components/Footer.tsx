@@ -17,7 +17,7 @@ const footerLinks = {
     { label: "FAQ", href: "#faq" },
   ],
   Contact: [
-    { label: "WhatsApp", href: "https://wa.me/21658872007" },
+    { label: "WhatsApp", href: "https://wa.me/21658588633" },
     { label: "Instagram", href: "#" },
     { label: "Facebook", href: "#" },
   ],
@@ -70,7 +70,7 @@ export default function Footer() {
               {[
                 { img: "/instagram.png", href: "#", title: "Instagram" },
                 { img: "/facebook.png", href: "#", title: "Facebook" },
-                { img: "/whatsapp.png", href: "https://wa.me/21658872007", title: "WhatsApp" },
+                { img: "/whatsapp.png", href: "https://wa.me/21658588633", title: "WhatsApp" },
               ].map((s) => (
                 <a
                   key={s.title}

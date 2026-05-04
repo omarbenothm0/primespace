@@ -160,7 +160,7 @@ export default function FAQ() {
             Still have a question? Just ask us directly 👇
           </p>
           <a
-            href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I%20have%20a%20question."
+            href="https://wa.me/21658588633?text=Hi%20PrimeSpace!%20I%20have%20a%20question."
             target="_blank"
             rel="noopener noreferrer"
             style={{

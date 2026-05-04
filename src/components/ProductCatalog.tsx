@@ -408,7 +408,7 @@ function openWA(productName: string, denomination?: string) {
     ? `Hi PrimeSpace! I want to order: ${productName} ${denomination}`
     : `Hi PrimeSpace! I want to order: ${productName}`;
   const msg = encodeURIComponent(orderText);
-  window.open(`https://wa.me/21658872007?text=${msg}`, "_blank");
+  window.open(`https://wa.me/21658588633?text=${msg}`, "_blank");
 }
 
 function ProductCard({
@@ -690,7 +690,7 @@ export default function ProductCatalog() {
 
         <div style={{ textAlign: "center", marginTop: 16 }}>
           <p style={{ color: "#a0a0b8", fontSize: 15, marginBottom: 16 }}>Don't see what you're looking for? We have even more products!</p>
-          <a href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I'm%20looking%20for%20a%20product." target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/21658588633?text=Hi%20PrimeSpace!%20I'm%20looking%20for%20a%20product." target="_blank" rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#25d366", color: "#fff", padding: "14px 32px", borderRadius: 9999, fontSize: 15, fontWeight: 600, textDecoration: "none" }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#1ebe59"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#25d366"; }}

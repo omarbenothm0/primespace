@@ -140,7 +140,7 @@ export default function Reviews() {
             Be among our first customers and leave the first review!
           </p>
           <a
-            href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I%20want%20to%20place%20an%20order."
+            href="https://wa.me/21658588633?text=Hi%20PrimeSpace!%20I%20want%20to%20place%20an%20order."
             target="_blank"
             rel="noopener noreferrer"
             style={{

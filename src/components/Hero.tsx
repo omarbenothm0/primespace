@@ -154,7 +154,7 @@ export default function Hero() {
               </button>
  
               <a
-                href="https://wa.me/21658872007?text=Hi%20PrimeSpace!%20I%20want%20to%20place%20an%20order."
+                href="https://wa.me/21658588633?text=Hi%20PrimeSpace!%20I%20want%20to%20place%20an%20order."
                 target="_blank" rel="noopener noreferrer"
                 style={{
                   background: "transparent", color: "#fff",
