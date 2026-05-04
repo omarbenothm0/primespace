@@ -7,7 +7,7 @@ import Image from "next/image";
 const brandLogos = [
   { name: "Netflix", file: "/netflix.png", bg: "linear-gradient(135deg,#141414,#1a0000)", delay: 0, productId: "product-1" },
   { name: "ChatGPT", file: "/chatgpt.png", bg: "linear-gradient(135deg,#0a1a14,#0d2318)", delay: 0.3, productId: "product-6" },
-  { name: "Discord", file: "/discord.png", bg: "linear-gradient(135deg,#1a0800,#2d0a00)", delay: 1.0, productId: "product-7" },
+  { name: "Discord", file: "/discord.png", bg: "linear-gradient(135deg,#1a1d3a,#5865F2)", delay: 1.0, productId: "product-7" },
   { name: "Disney+", file: "/disney.png", bg: "linear-gradient(135deg,#000820,#001040)", delay: 1.4, productId: "product-3" },
   { name: "Steam", file: "/steam.png", bg: "linear-gradient(135deg,#0a0f1a,#1b2838)", delay: 0.5, productId: "product-10" },
   { name: "Spotify", file: "/spotify.png", bg: "linear-gradient(135deg,#0a1a0a,#0d2b0d)", delay: 0.8, productId: "product-4" },
